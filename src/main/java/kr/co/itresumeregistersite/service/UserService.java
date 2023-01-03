@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.service;
 
+import kr.co.itresumeregistersite.domain.dto.userDto.DeleteDto;
 import kr.co.itresumeregistersite.domain.dto.userDto.ReadDto;
 import kr.co.itresumeregistersite.domain.dto.userDto.SignUpDto;
 import kr.co.itresumeregistersite.domain.dto.userDto.UpdateDto;
@@ -49,5 +50,11 @@ public class UserService {
         user.get().update(updateDto.getIdentity(), updateDto.getName(), updateDto.getPhone(), updateDto.getEmail(), updateDto.getBirth(), updateDto.getAddress(), updateDto.getGender());
 
         userRepository.save(user.get());
+    }
+
+    // TODO 회원탈퇴
+    public void deleteUser(DeleteDto deleteDto) {
+        Optional<User> user = userRepository.findById(deleteDto.getIdentity());
+        userRepository.delete(user.get());
     }
 }
