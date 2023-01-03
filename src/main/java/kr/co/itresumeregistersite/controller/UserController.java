@@ -2,10 +2,12 @@ package kr.co.itresumeregistersite.controller;
 
 import kr.co.itresumeregistersite.domain.dto.userDto.ReadDto;
 import kr.co.itresumeregistersite.domain.dto.userDto.SignUpDto;
+import kr.co.itresumeregistersite.domain.dto.userDto.UpdateDto;
 import kr.co.itresumeregistersite.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
@@ -27,6 +29,10 @@ public class UserController {
     }
 
     // TODO 회원정보 수정
+    @PutMapping("/user/updateUser")
+    public void updateUser(UpdateDto updateDto) {
+        userService.updateUser(updateDto);
+    }
 
     // TODO 회원탈퇴
 }
