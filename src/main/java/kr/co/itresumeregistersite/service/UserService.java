@@ -2,6 +2,7 @@ package kr.co.itresumeregistersite.service;
 
 import kr.co.itresumeregistersite.domain.dto.userDto.ReadDto;
 import kr.co.itresumeregistersite.domain.dto.userDto.SignUpDto;
+import kr.co.itresumeregistersite.domain.dto.userDto.UpdateDto;
 import kr.co.itresumeregistersite.domain.entity.User;
 import kr.co.itresumeregistersite.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,13 @@ public class UserService {
                 .build();
 
         return readDto;
+    }
+
+    // TODO 회원정보 수정
+    public void updateUser(UpdateDto updateDto) {
+        Optional<User> user = userRepository.findById(updateDto.getIdentity());
+        user.get().update(updateDto.getIdentity(), updateDto.getName(), updateDto.getPhone(), updateDto.getEmail(), updateDto.getBirth(), updateDto.getAddress(), updateDto.getGender());
+
+        userRepository.save(user.get());
     }
 }
