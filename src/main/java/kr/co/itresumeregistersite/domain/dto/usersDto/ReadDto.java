@@ -1,4 +1,4 @@
-package kr.co.itresumeregistersite.domain.dto.userDto;
+package kr.co.itresumeregistersite.domain.dto.usersDto;
 
 import lombok.Builder;
 import lombok.Getter;
