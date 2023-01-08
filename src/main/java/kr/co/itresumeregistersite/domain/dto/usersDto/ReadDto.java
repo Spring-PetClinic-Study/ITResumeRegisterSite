@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.domain.dto.usersDto;
 
+import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,16 +8,30 @@ import lombok.Getter;
 public class ReadDto {
 
     private String identity;
+
     private String password;
+
     private String name;
+
     private String phone;
+
     private String email;
+
     private String birth;
+
     private String address;
+
     private String gender;
 
     @Builder
-    public ReadDto(String identity, String password, String name, String phone, String email, String birth, String address, String gender) {
+    public ReadDto(String identity,
+                   String password,
+                   String name,
+                   String phone,
+                   String email,
+                   String birth,
+                   String address,
+                   String gender) {
         this.identity = identity;
         this.password = password;
         this.name = name;
