@@ -1,9 +1,6 @@
 package kr.co.itresumeregistersite.service;
 
-import kr.co.itresumeregistersite.domain.dto.usersDto.DeleteDto;
-import kr.co.itresumeregistersite.domain.dto.usersDto.ReadDto;
-import kr.co.itresumeregistersite.domain.dto.usersDto.SignUpDto;
-import kr.co.itresumeregistersite.domain.dto.usersDto.UsersUpdateDto;
+import kr.co.itresumeregistersite.domain.dto.usersDto.*;
 import kr.co.itresumeregistersite.domain.entity.Users;
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +17,7 @@ public class UsersService {
     // 회원가입
     @Transactional
     public void signUp(SignUpDto signUpDto) {
-        Users user = Users.builder()
+        Users users = Users.builder()
                 .identity(signUpDto.getIdentity())
                 .password(signUpDto.getPassword())
                 .name(signUpDto.getName())
@@ -31,7 +28,7 @@ public class UsersService {
                 .gender(signUpDto.getGender())
                 .build();
 
-        usersRepository.save(user);
+        usersRepository.save(users);
     }
 
     // 아아디 중복 여부 확인
@@ -65,23 +62,38 @@ public class UsersService {
         }
     }
 
-//    회원정보 조회
-//    public ReadDto getUser(String identity) {
-//        Optional<Users> user = userRepository.findById(identity);
-//        ReadDto readDto = ReadDto.builder()
-//                .identity(user.get().getIdentity())
-//                .build();
-//
-//        return readDto;
-//    }
+    // 회원정보 조회
+    public ReadDto getUser(String identity) {
+        Optional<Users> users = usersRepository.findByIdentity(identity);
+        ReadDto readDto = ReadDto.builder()
+                .identity(users.get().getIdentity())
+                .build();
+
+        return readDto;
+    }
 
     // 회원정보 수정
     @Transactional
-    public void updateUser(UsersUpdateDto updateDto) {
-        Optional<Users> user = usersRepository.findByIdentity(updateDto.getIdentity());
-        user.get().update(updateDto.getIdentity(), updateDto.getName(), updateDto.getPhone(), updateDto.getEmail(), updateDto.getBirth(), updateDto.getAddress(), updateDto.getGender());
+    public void updateUser(UsersUpdateDto usersUpdateDto) {
+        Optional<Users> users = usersRepository.findByIdentity(usersUpdateDto.getIdentity());
+        users.get().update(usersUpdateDto.getIdentity(),
+                usersUpdateDto.getName(),
+                usersUpdateDto.getPhone(),
+                usersUpdateDto.getEmail(),
+                usersUpdateDto.getBirth(),
+                usersUpdateDto.getAddress(),
+                usersUpdateDto.getGender());
 
-        usersRepository.save(user.get());
+        usersRepository.save(users.get());
+    }
+
+    // TODO 회원 비밀번호 수정
+    @Transactional
+    public void updatePassword(UsersPasswordDto usersPasswordDto) {
+        Optional<Users> users = usersRepository.findByIdentity(usersPasswordDto.getIdentity());
+        users.get().getPassword();
+
+        usersRepository.save(users.get());
     }
 
     // 회원탈퇴
@@ -90,8 +102,4 @@ public class UsersService {
         Optional<Users> user = usersRepository.findByIdentity(deleteDto.getIdentity());
         usersRepository.delete(user.get());
     }
-
-    // TODO 로그인
-
-    // TODO 로그인을 하기 위해 가입된 user정보를 조회하는 메소드
 }
