@@ -15,17 +15,26 @@ public class Career {
 
     @Id @GeneratedValue
     private Long careerId;
+
     @OneToOne
     @JoinColumn(name = "Resume_Id", referencedColumnName = "ID")
     private Resume resumeId;
+
     @Column(length = 20, nullable = false)
     private String company_name;
+
     @Column(length = 20, nullable = false)
     private String department;
-    private LocalDateTime employment_year;
-    private LocalDateTime resignation_year;
+
+    @Column(name = "employment_year")
+    private LocalDateTime employmentYear;
+
+    @Column(name = "resignation_year")
+    private LocalDateTime resignationYear;
+
     @Column(length = 20, nullable = false)
     private String position;
+
     @Column(length = 20, nullable = false)
     private String responsibility;
 }
