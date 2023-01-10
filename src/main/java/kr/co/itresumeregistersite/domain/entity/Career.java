@@ -1,0 +1,31 @@
+package kr.co.itresumeregistersite.domain.entity;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Entity
+@Table(name = "tbl_career")
+public class Career {
+
+    @Id @GeneratedValue
+    private Long careerId;
+    @OneToOne
+    @JoinColumn(name = "Resume_Id", referencedColumnName = "ID")
+    private Resume resumeId;
+    @Column(length = 20, nullable = false)
+    private String company_name;
+    @Column(length = 20, nullable = false)
+    private String department;
+    private LocalDateTime employment_year;
+    private LocalDateTime resignation_year;
+    @Column(length = 20, nullable = false)
+    private String position;
+    @Column(length = 20, nullable = false)
+    private String responsibility;
+}
