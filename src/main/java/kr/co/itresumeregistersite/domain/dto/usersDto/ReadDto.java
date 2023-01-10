@@ -11,8 +11,6 @@ public class ReadDto {
 
     private String identity;
 
-    private String password;
-
     private String name;
 
     private String phone;
@@ -25,6 +23,5 @@ public class ReadDto {
 
     private String gender;
 
-    public ReadDto() {}
 }
 

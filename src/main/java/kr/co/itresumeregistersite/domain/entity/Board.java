@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class Board {
 
     @Id @GeneratedValue
+    @Column(name = "board_id")
     private Long boardId;
 
     @Column(length = 20, nullable = false)

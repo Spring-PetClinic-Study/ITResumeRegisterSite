@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Resume {
 
     @Id @GeneratedValue
+    @Column(name = "resume_id")
     private Long resumeId;
 
     @ManyToOne

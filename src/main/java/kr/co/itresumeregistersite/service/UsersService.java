@@ -51,17 +51,6 @@ public class UsersService {
         }
     }
 
-
-    // 전화번호 중복 여부 확인
-    @Transactional
-    public void checkUsersPhoneDuplication(SignUpDto signUpDto) {
-        boolean usersPhoneDuplicate = usersRepository.existsByPhone(signUpDto.getPhone());
-
-        if(usersPhoneDuplicate) {
-            throw new IllegalStateException("이미 존재하는 전화번호입니다!");
-        }
-    }
-
     // 회원정보 조회
     public ReadDto getUser(String identity) {
         Optional<Users> users = usersRepository.findByIdentity(identity);

@@ -8,14 +8,14 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Entity
-@Table(name = "tbl_user")
+@Table(name = "tbl_users")
 public class Users {
 
-    @Id
-    @GeneratedValue
-    private Long userId;
+    @Id @GeneratedValue
+    @Column(name = "users_id")
+    private Long usersId;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String identity;
 
     @Column(length = 20, nullable = false)
@@ -24,10 +24,10 @@ public class Users {
     @Column(length = 20, nullable = false)
     private String name;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String phone;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false, unique = true)
     private String email;
 
     @Column(length = 20, nullable = false)
@@ -42,7 +42,13 @@ public class Users {
     public Users() {}
 
     // 회원 수정 메소드
-    public void update(String identity, String name, String phone, String email, String birth, String address, String gender) {
+    public void update(String identity,
+                       String name,
+                       String phone,
+                       String email,
+                       String birth,
+                       String address,
+                       String gender) {
         this.identity = identity;
         this.name = name;
         this.phone = phone;

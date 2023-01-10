@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class Career {
 
     @Id @GeneratedValue
+    @Column(name = "career_id")
     private Long careerId;
 
     @OneToOne
@@ -21,7 +22,7 @@ public class Career {
     private Resume resumeId;
 
     @Column(length = 20, nullable = false)
-    private String company_name;
+    private String companyName;
 
     @Column(length = 20, nullable = false)
     private String department;
