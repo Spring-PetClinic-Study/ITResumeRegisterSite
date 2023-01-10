@@ -15,13 +15,20 @@ public class Board {
 
     @Id @GeneratedValue
     private Long boardId;
+
     @Column(length = 20, nullable = false)
     private String title;
+
     @Column(length = 125, nullable = false)
     private String content;
+
     @Column(length = 20, nullable = false)
     private String writer;
-    private LocalDateTime created_date;
-    private LocalDateTime modified_date;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 }
 
