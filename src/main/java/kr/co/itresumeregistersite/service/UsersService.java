@@ -43,27 +43,36 @@ public class UsersService {
         usersRepository.save(users);
     }
 
-    // TODO 로그인
+
 
     // TODO 일치하는 회원정보가 없을 경우 예외 처리
     // 회원정보 조회
     public ReadDto getUser(String identity) throws Exception {
-        Optional<Users> users = usersRepository.findByIdentity(identity);
+        Users users = usersRepository.findByIdentity(identity)
+                .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-        return ReadDto;
+
     }
 
     // 회원정보 수정
     @Transactional
-    public void updateUser(UsersUpdateDto usersUpdateDto) {
+    public void updateUser(UsersUpdateDto usersUpdateDto) throws Exception {
         Optional<Users> users = usersRepository.findByIdentity(usersUpdateDto.getIdentity());
-        users.get().update(usersUpdateDto.getIdentity(),
-                usersUpdateDto.getName(),
-                usersUpdateDto.getPhone(),
-                usersUpdateDto.getEmail(),
-                usersUpdateDto.getBirth(),
-                usersUpdateDto.getAddress(),
-                usersUpdateDto.getGender());
+
+        // TODO 하나로 묶을 수 있는 방법(update 메소드로 전부 다 수정이 가능하도록 할지 아님 지금처럼 할지)
+        users.get().updateEmail(usersUpdateDto.getEmail());
+        users.get().updatePhone(usersUpdateDto.getPhone());
+        users.get().updateAddress(usersUpdateDto.getAddress());
+
+        if (usersUpdateDto.getEmail().isEmpty()) {
+            throw new UsersException(UsersExceptionType.NOT_EXIST_EMAIL);
+        }
+        else if (usersUpdateDto.getPhone().isEmpty()) {
+            throw new UsersException(UsersExceptionType.NOT_EXIST_PHONE);
+        }
+        else if (usersUpdateDto.getAddress().isEmpty()) {
+            throw new UsersException(UsersExceptionType.NOT_EXIST_ADDRESS);
+        }
 
         usersRepository.save(users.get());
     }

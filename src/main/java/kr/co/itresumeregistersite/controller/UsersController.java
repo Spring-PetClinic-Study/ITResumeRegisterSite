@@ -26,7 +26,7 @@ public class UsersController {
 
     // 회원정보 수정
     @PutMapping("/updateUser")
-    public void updateUser(UsersUpdateDto usersUpdateDto) {
+    public void updateUser(UsersUpdateDto usersUpdateDto) throws Exception {
         usersService.updateUser(usersUpdateDto);
     }
 
