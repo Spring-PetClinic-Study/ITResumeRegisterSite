@@ -62,13 +62,10 @@ public class UsersService {
         Users users = usersRepository.findByIdentity(usersUpdateDto.getIdentity())
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-
-//        usersUpdateDto.email().ifPresent(users::updateEmail);
-//        usersUpdateDto.phone().ifPresent(users::updatePhone);
-//        usersUpdateDto.address().ifPresent(users::updateAddress);
+        users.update(usersUpdateDto.getEmail(), usersUpdateDto.getPhone(), usersUpdateDto.getAddress());
     }
 
-    // TODO 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리
+    // 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리
     // 회원 비밀번호 수정
     @Transactional
     public void updatePassword(UsersPasswordDto usersPasswordDto) throws Exception {
