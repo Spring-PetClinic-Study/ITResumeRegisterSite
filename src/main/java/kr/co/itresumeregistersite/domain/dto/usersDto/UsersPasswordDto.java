@@ -8,4 +8,6 @@ public class UsersPasswordDto {
     private String identity;
 
     private String password;
+
+    private String changePassword;
 }
