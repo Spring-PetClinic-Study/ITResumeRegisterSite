@@ -3,7 +3,7 @@ package kr.co.itresumeregistersite.domain.dto.usersDto;
 import lombok.Getter;
 
 @Getter
-public class UsersUpdateDto {
+public class UsersUpdateDto {   // 회원정보 수정 Dto
 
     private String identity;
 
