@@ -1,7 +1,7 @@
 package kr.co.itresumeregistersite.domain.entity;
 
+import kr.co.itresumeregistersite.domain.dto.usersDto.SignUpDto;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -24,9 +24,6 @@ public class Users {
     private String password;    // 비밀번호
 
     @Column(length = 20, nullable = false)
-    private String checkPassword;   // 비밀번호 확인
-
-    @Column(length = 20, nullable = false)
     private String name;    // 이름
 
     @Column(length = 20, nullable = false, unique = true)
@@ -44,7 +41,18 @@ public class Users {
     @Column(length = 10, nullable = false)
     private String gender;  // 성별
 
-
+    public static Users of(SignUpDto signUpDto){
+        return Users.builder()
+                .identity(signUpDto.getIdentity())
+                .password(signUpDto.getPassword())
+                .name(signUpDto.getName())
+                .phone(signUpDto.getPhone())
+                .email(signUpDto.getEmail())
+                .birth(signUpDto.getBirth())
+                .address(signUpDto.getAddress())
+                .gender(signUpDto.getGender())
+                .build();
+    }
 
     // == 정보 수정 == //
 
@@ -54,14 +62,11 @@ public class Users {
     }
 
     // 회원정보 수정
-    public void update(String email, String phone, String address) {
+    public void update(String email,
+                       String phone,
+                       String address) {
         this.email = email;
         this.phone = phone;
         this.address = address;
-    }
-
-    // 비밀번호 변경, 회원탈퇴 시 비밀번호를 확인하며, 이때 비밀번호의 일치여부를 판단
-    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword) {
-        return passwordEncoder.matches(checkPassword, getPassword());
     }
 }

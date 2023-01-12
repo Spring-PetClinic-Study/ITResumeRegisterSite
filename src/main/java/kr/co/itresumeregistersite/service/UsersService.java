@@ -2,8 +2,8 @@ package kr.co.itresumeregistersite.service;
 
 import kr.co.itresumeregistersite.domain.dto.usersDto.*;
 import kr.co.itresumeregistersite.domain.entity.Users;
-import kr.co.itresumeregistersite.domain.exception.UsersException;
-import kr.co.itresumeregistersite.domain.exception.UsersExceptionType;
+import kr.co.itresumeregistersite.domain.exception.usersException.UsersException;
+import kr.co.itresumeregistersite.domain.exception.usersException.UsersExceptionType;
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,30 +20,15 @@ public class UsersService {
 //    private final PasswordEncoder passwordEncoder;
 
 
-    // TODO Spring Security(PasswordEncoder)에 대해 공부 -> 개어려움
+    // TODO Transactional 사용 이유 공부하기.
     // 회원가입
     @Transactional
-    public void signUp(SignUpDto signUpDto) throws Exception {
-        Users users = Users.builder()
-                .identity(signUpDto.getIdentity())
-                .password(signUpDto.getPassword())
-                .checkPassword(signUpDto.getCheckPassword())
-                .name(signUpDto.getName())
-                .phone(signUpDto.getPhone())
-                .email(signUpDto.getEmail())
-                .birth(signUpDto.getBirth())
-                .address(signUpDto.getAddress())
-                .gender(signUpDto.getGender())
-                .build();
-
+    public void signUp(SignUpDto signUpDto) {
         // 아이디 중복 검사 및 비밀번호 재확인 검사
-        if (usersRepository.findByIdentity(signUpDto.getIdentity()).isPresent()) {
-            throw new UsersException(UsersExceptionType.ALREADY_EXIST_USERSIDENTITY);
-        }
-        else if (!(signUpDto.getPassword().equals(signUpDto.getCheckPassword()))) {
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
-        }
+        checkIdentity(signUpDto.getIdentity());
+        checkPassword(signUpDto.getPassword(), signUpDto.getCheckPassword());
 
+        final Users users = Users.of(signUpDto);
         usersRepository.save(users);
     }
 
@@ -98,5 +83,15 @@ public class UsersService {
         else {
             usersRepository.delete(users.get());
         }
+    }
+
+    private void checkIdentity(String identity){
+        if (usersRepository.findByIdentity(identity).isPresent())
+            throw new UsersException(UsersExceptionType.ALREADY_EXIST_USERSIDENTITY);
+    }
+
+    private void checkPassword(String password, String checkPassword){
+        if (!password.equals(checkPassword))
+            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
     }
 }
