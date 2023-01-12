@@ -14,21 +14,21 @@ public class Resume {
 
     @Id @GeneratedValue
     @Column(name = "resume_id")
-    private Long resumeId;
+    private Long resumeId;  // primary Key
 
     @ManyToOne
     @JoinColumn(name = "User_Id", referencedColumnName = "ID")
-    private Users userId;
+    private Users userId;   // foreign Key
+
+    @Column(name = "school_name", length = 30, nullable = false)
+    private String schoolName;  // 학교명
 
     @Column(length = 30, nullable = false)
-    private String school_name;
+    private String major;   // 전공
 
     @Column(length = 30, nullable = false)
-    private String major;
-
-    @Column(length = 30, nullable = false)
-    private String minor;
+    private String minor;   // 부전공
 
     @Column(length = 125, nullable = false)
-    private String profile;
+    private String profile; // 자기소개서
 }
