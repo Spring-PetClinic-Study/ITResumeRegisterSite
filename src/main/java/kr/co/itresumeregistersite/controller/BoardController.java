@@ -19,6 +19,8 @@ public class BoardController {
 //        this.boardService = boardService;
 //    }
 
+    //Fix
+
     // TODO 게시글 작성 -> HTTP Method 공부
     @PostMapping
     public void writePost(BoardDto boardDto) {
