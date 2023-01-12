@@ -6,6 +6,7 @@ import kr.co.itresumeregistersite.domain.exception.UsersException;
 import kr.co.itresumeregistersite.domain.exception.UsersExceptionType;
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,7 +15,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UsersService {
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     // TODO Spring Security(PasswordEncoder)에 대해 공부 -> 개어려움
@@ -41,19 +43,19 @@ public class UsersService {
         usersRepository.save(users);
     }
 
-//    회원 로그인
+    // TODO 회원 로그인 -> Spring Security로 구현하는 방법도 공부
 //    아이디, 비밀번호가 틀렸을 경우 예외 처리
 //    public void signIn(SignInDto signInDto) throws Exception {
 //
 //    }
 
     // TODO 일치하는 회원정보가 없을 경우 예외 처리
-    // 회원정보 조회
-    public UsersInfoDto getUser(String identity) throws Exception {
-        Users users = usersRepository.findByIdentity(identity)
+    // TODO 회원정보 조회
+    public UsersInfoDto userInfo(Long userId) throws Exception {
+        Users users = usersRepository.findById(userId)
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-
+        return new UsersInfoDto(users);
     }
 
     // 회원정보 수정
@@ -80,6 +82,7 @@ public class UsersService {
         users.updatePassword(usersPasswordDto.getPassword());
     }
 
+    // TODO 회원탈퇴 시 비밀번호를 입력받고 삭제할 수 있고 틀릴 경우 예외 처리
     // 회원탈퇴
     @Transactional
     public void delete(DeleteDto deleteDto) {
