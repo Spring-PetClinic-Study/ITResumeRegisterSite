@@ -16,17 +16,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
-    private final PasswordEncoder passwordEncoder;
+    // 사용하기 위해서 Spring Security에 대해 자세하게 공부
+//    private final PasswordEncoder passwordEncoder;
 
 
     // TODO Spring Security(PasswordEncoder)에 대해 공부 -> 개어려움
-    // TODO UsersServiceImpl implements UsersService 하는 이유에 대해 공부
     // 회원가입
     @Transactional
-    public void signUp(SignUpDto signUpDto) throws Exception{
+    public void signUp(SignUpDto signUpDto) throws Exception {
         Users users = Users.builder()
                 .identity(signUpDto.getIdentity())
                 .password(signUpDto.getPassword())
+                .checkPassword(signUpDto.getCheckPassword())
                 .name(signUpDto.getName())
                 .phone(signUpDto.getPhone())
                 .email(signUpDto.getEmail())
@@ -35,9 +36,11 @@ public class UsersService {
                 .gender(signUpDto.getGender())
                 .build();
 
-        // 아이디 중복 검사
+        // 아이디 중복 검사 및 비밀번호 재확인 검사
         if (usersRepository.findByIdentity(signUpDto.getIdentity()).isPresent()) {
             throw new UsersException(UsersExceptionType.ALREADY_EXIST_USERSIDENTITY);
+        } else if (!(signUpDto.getPassword().equals(signUpDto.getCheckPassword()))) {
+            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
         }
 
         usersRepository.save(users);
@@ -49,9 +52,9 @@ public class UsersService {
 //
 //    }
 
-    // TODO 일치하는 회원정보가 없을 경우 예외 처리
-    // TODO 회원정보 조회
+    // 회원정보 조회
     public UsersInfoDto userInfo(Long userId) throws Exception {
+        // TODO 일치하는 회원정보가 없을 경우 예외 처리
         Users users = usersRepository.findById(userId)
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
@@ -67,14 +70,13 @@ public class UsersService {
         users.update(usersUpdateDto.getEmail(), usersUpdateDto.getPhone(), usersUpdateDto.getAddress());
     }
 
-    // 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리
-    // 회원 비밀번호 수정
     @Transactional
     public void updatePassword(UsersPasswordDto usersPasswordDto) throws Exception {
+        // 회원 비밀번호 수정
         Users users = usersRepository.findByIdentity(usersPasswordDto.getIdentity())
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-
+        // 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리
         if (usersPasswordDto.getPassword().equals(usersPasswordDto.getChangePassword())) {
             throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
         }
@@ -82,11 +84,12 @@ public class UsersService {
         users.updatePassword(usersPasswordDto.getPassword());
     }
 
-    // TODO 회원탈퇴 시 비밀번호를 입력받고 삭제할 수 있고 틀릴 경우 예외 처리
     // 회원탈퇴
     @Transactional
-    public void delete(DeleteDto deleteDto) {
-        Optional<Users> users = usersRepository.findByIdentity(deleteDto.getIdentity());
-        usersRepository.delete(users.get());
+    public void delete(DeleteDto deleteDto) throws Exception {
+
+
+        // TODO 회원탈퇴 시 아이디 또는 비밀번호(or 둘 다)를 입력받고 삭제, 틀릴 경우는 예외 처리
+
     }
 }

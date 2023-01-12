@@ -44,7 +44,7 @@ public class UsersController {
 
     // 회원탈퇴
     @DeleteMapping("/deleteUser")
-    public void delete(DeleteDto deleteDto) {
+    public void delete(DeleteDto deleteDto) throws Exception {
         usersService.delete(deleteDto);
     }
 }
