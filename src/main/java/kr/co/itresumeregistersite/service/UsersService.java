@@ -6,7 +6,6 @@ import kr.co.itresumeregistersite.domain.exception.UsersException;
 import kr.co.itresumeregistersite.domain.exception.UsersExceptionType;
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
+
     // 사용하기 위해서 Spring Security에 대해 자세하게 공부
 //    private final PasswordEncoder passwordEncoder;
 
@@ -39,7 +39,8 @@ public class UsersService {
         // 아이디 중복 검사 및 비밀번호 재확인 검사
         if (usersRepository.findByIdentity(signUpDto.getIdentity()).isPresent()) {
             throw new UsersException(UsersExceptionType.ALREADY_EXIST_USERSIDENTITY);
-        } else if (!(signUpDto.getPassword().equals(signUpDto.getCheckPassword()))) {
+        }
+        else if (!(signUpDto.getPassword().equals(signUpDto.getCheckPassword()))) {
             throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
         }
 
@@ -47,14 +48,12 @@ public class UsersService {
     }
 
     // TODO 회원 로그인 -> Spring Security로 구현하는 방법도 공부
-//    아이디, 비밀번호가 틀렸을 경우 예외 처리
-//    public void signIn(SignInDto signInDto) throws Exception {
-//
-//    }
+
+    // TODO 회원 로그아웃 -> SecurityContextHolder.clearContext()에 대해 공부
 
     // 회원정보 조회
     public UsersInfoDto userInfo(Long userId) throws Exception {
-        // TODO 일치하는 회원정보가 없을 경우 예외 처리
+        // 일치하는 회원정보가 없을 경우 예외 처리
         Users users = usersRepository.findById(userId)
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
@@ -87,9 +86,17 @@ public class UsersService {
     // 회원탈퇴
     @Transactional
     public void delete(DeleteDto deleteDto) throws Exception {
-
-
         // TODO 회원탈퇴 시 아이디 또는 비밀번호(or 둘 다)를 입력받고 삭제, 틀릴 경우는 예외 처리
+        Optional<Users> users = usersRepository.findByIdentity(deleteDto.getIdentity());
 
+        String oldPassword = users.get().getPassword();
+        String newPassword = deleteDto.getPassword();
+
+        if (!(oldPassword.equals(newPassword))) {
+            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
+        }
+        else {
+            usersRepository.delete(users.get());
+        }
     }
 }

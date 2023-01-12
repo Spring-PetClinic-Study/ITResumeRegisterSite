@@ -19,11 +19,6 @@ public class UsersController {
         usersService.signUp(signUpDto);
     }
 
-//    회원 로그인
-//    public void signIn(SignInDto signInDto) throws Exception {
-//        usersService.signIn(signInDto);
-//    }
-
     // 회원정보 조회
     @GetMapping("")
     public UsersInfoDto userInfo(Long userId) throws Exception {
@@ -31,19 +26,19 @@ public class UsersController {
     }
 
     // 회원정보 수정
-    @PutMapping()
+    @PutMapping("")
     public void updateUser(UsersUpdateDto usersUpdateDto) throws Exception {
         usersService.updateUser(usersUpdateDto);
     }
 
     // 회원 비밀번호 수정
-    @PutMapping()
+    @PutMapping("")
     public void updatePassword(UsersPasswordDto usersPasswordDto) throws Exception {
         usersService.updatePassword(usersPasswordDto);
     }
 
     // 회원탈퇴
-    @DeleteMapping("/deleteUser")
+    @DeleteMapping("")
     public void delete(DeleteDto deleteDto) throws Exception {
         usersService.delete(deleteDto);
     }
