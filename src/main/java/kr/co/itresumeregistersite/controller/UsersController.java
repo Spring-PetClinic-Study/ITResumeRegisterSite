@@ -15,31 +15,32 @@ public class UsersController {
 
     // 회원가입
     @PostMapping
-    public void signUp(@RequestBody SignUpDto signUpDto) throws Exception {
+    public void signUp(@RequestBody SignUpDto signUpDto) {
         usersService.signUp(signUpDto);
     }
 
     // 회원정보 조회
     @GetMapping
-    public UsersInfoDto userInfo(Long userId) throws Exception {
-        return usersService.userInfo(userId);
+    public UsersInfoDto userInfo(String name) {
+        return usersService.userInfo(name);
     }
 
     // 회원정보 수정
     @PutMapping
-    public void updateUser(UsersUpdateDto usersUpdateDto) throws Exception {
+    public void updateUser(UsersUpdateDto usersUpdateDto) {
         usersService.updateUser(usersUpdateDto);
     }
 
-    //TODO -> URL이 왜 겹치면 안뙤는지 이해하기
+    // TODO URL이 왜 겹치면 안뙤는지 이해하기
+    // 회원 비밀번호 수정
     @PutMapping("/password")
-    public void updatePassword(UsersPasswordDto usersPasswordDto) throws Exception {
+    public void updatePassword(UsersPasswordDto usersPasswordDto) {
         usersService.updatePassword(usersPasswordDto);
     }
 
     // 회원탈퇴
     @DeleteMapping
-    public void delete(DeleteDto deleteDto) throws Exception {
+    public void delete(DeleteDto deleteDto) {
         usersService.delete(deleteDto);
     }
 }

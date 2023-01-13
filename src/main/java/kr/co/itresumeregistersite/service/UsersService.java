@@ -7,8 +7,7 @@ import kr.co.itresumeregistersite.domain.exception.usersException.UsersException
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
@@ -16,11 +15,6 @@ import java.util.Optional;
 public class UsersService {
     private final UsersRepository usersRepository;
 
-    // 사용하기 위해서 Spring Security에 대해 자세하게 공부
-//    private final PasswordEncoder passwordEncoder;
-
-
-    // TODO Transactional 사용 이유 공부하기.
     // 회원가입
     @Transactional
     public void signUp(SignUpDto signUpDto) {
@@ -32,35 +26,32 @@ public class UsersService {
         usersRepository.save(users);
     }
 
-    // TODO 회원 로그인 -> Spring Security로 구현하는 방법도 공부
-
-    // TODO 회원 로그아웃 -> SecurityContextHolder.clearContext()에 대해 공부
-
     // 회원정보 조회
-    public UsersInfoDto userInfo(Long userId) throws Exception {
-        // 일치하는 회원정보가 없을 경우 예외 처리
-        Users users = usersRepository.findById(userId)
-                .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
+    public UsersInfoDto userInfo(String name) {
+        Users users = usersRepository.findByName(name)
+                .orElseThrow(() -> new  UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-        return new UsersInfoDto(users);
+        return new UsersInfoDto(users.getName(), users.getEmail(), users.getBirth(), users.getGender());
     }
+
+    // TODO 회원 목록 조회
 
     // 회원정보 수정
     @Transactional
-    public void updateUser(UsersUpdateDto usersUpdateDto) throws Exception {
+    public void updateUser(UsersUpdateDto usersUpdateDto) {
         Users users = usersRepository.findByIdentity(usersUpdateDto.getIdentity())
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
         users.update(usersUpdateDto.getEmail(), usersUpdateDto.getPhone(), usersUpdateDto.getAddress());
     }
 
+    // TODO 회원 비밀번호 수정
     @Transactional
-    public void updatePassword(UsersPasswordDto usersPasswordDto) throws Exception {
-        // 회원 비밀번호 수정
+    public void updatePassword(UsersPasswordDto usersPasswordDto) {
         Users users = usersRepository.findByIdentity(usersPasswordDto.getIdentity())
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-        // 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리
+        // TODO 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리 -> 예외처리 함수 사용
         if (usersPasswordDto.getPassword().equals(usersPasswordDto.getChangePassword())) {
             throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
         }
@@ -68,9 +59,9 @@ public class UsersService {
         users.updatePassword(usersPasswordDto.getPassword());
     }
 
-    // 회원탈퇴
+    // TODO 회원탈퇴
     @Transactional
-    public void delete(DeleteDto deleteDto) throws Exception {
+    public void delete(DeleteDto deleteDto) {
         // TODO 회원탈퇴 시 아이디 또는 비밀번호(or 둘 다)를 입력받고 삭제, 틀릴 경우는 예외 처리
         Optional<Users> users = usersRepository.findByIdentity(deleteDto.getIdentity());
 
