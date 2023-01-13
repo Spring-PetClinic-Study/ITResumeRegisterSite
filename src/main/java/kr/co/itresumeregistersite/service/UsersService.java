@@ -8,7 +8,6 @@ import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,22 +55,19 @@ public class UsersService {
         users.updatePassword(usersPasswordDto.getPassword());
     }
 
-    // TODO 회원탈퇴
+    // 회원탈퇴
     @Transactional
     public void delete(DeleteDto deleteDto) {
-        // TODO 회원탈퇴 시 아이디 또는 비밀번호(or 둘 다)를 입력받고 삭제, 틀릴 경우는 예외 처리
-        Optional<Users> users = usersRepository.findByIdentity(deleteDto.getIdentity());
+        Users users = usersRepository.findByIdentity(deleteDto.getIdentity())
+                        .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-        String oldPassword = users.get().getPassword();
-        String newPassword = deleteDto.getPassword();
+        // 회원 비밀번호 동일 여부 검사
+        checkPassword(deleteDto.getPassword(), deleteDto.getCheckPassword());
 
-        if (!(oldPassword.equals(newPassword))) {
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
-        }
-        else {
-            usersRepository.delete(users.get());
-        }
+        usersRepository.delete(users);
     }
+
+
 
     private void checkIdentity(String identity){
         if (usersRepository.findByIdentity(identity).isPresent())
