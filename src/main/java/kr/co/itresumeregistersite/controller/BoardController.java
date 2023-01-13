@@ -9,22 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/boards")
-@RequiredArgsConstructor    //TODO 공부
+@RequiredArgsConstructor
 public class BoardController {
 
-    //주입 방법이 총 3가지 있는데, 공부를 해야할 것 같음. 보통 생성자 주입 많이 쓰는데 왜 쓰는지도~
     private final BoardService boardService;
 
-//    public BoardController(BoardService boardService) {
-//        this.boardService = boardService;
-//    }
+    // TODO 게시글 목록 -> 제목, 글쓴이만 보이게
 
-    //Fix
+    // TODO 게시글 상세조회
 
-    // TODO 게시글 작성 -> HTTP Method 공부
+    // 게시글 작성
     @PostMapping
     public void writePost(BoardDto boardDto) {
         boardService.savePost(boardDto);
     }
+
+    // TODO 게시글 수정
+
+    // TODO 게시글 삭제
 
 }
