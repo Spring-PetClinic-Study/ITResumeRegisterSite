@@ -27,14 +27,13 @@ public class UsersService {
     }
 
     // 회원정보 조회
+    @Transactional(readOnly = true)
     public UsersInfoDto userInfo(String name) {
         Users users = usersRepository.findByName(name)
                 .orElseThrow(() -> new  UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
         return new UsersInfoDto(users.getName(), users.getEmail(), users.getBirth(), users.getGender());
     }
-
-    // TODO 회원 목록 조회
 
     // 회원정보 수정
     @Transactional
@@ -45,16 +44,14 @@ public class UsersService {
         users.update(usersUpdateDto.getEmail(), usersUpdateDto.getPhone(), usersUpdateDto.getAddress());
     }
 
-    // TODO 회원 비밀번호 수정
+    // 회원 비밀번호 수정
     @Transactional
     public void updatePassword(UsersPasswordDto usersPasswordDto) {
         Users users = usersRepository.findByIdentity(usersPasswordDto.getIdentity())
                 .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-        // TODO 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리 -> 예외처리 함수 사용
-        if (usersPasswordDto.getPassword().equals(usersPasswordDto.getChangePassword())) {
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
-        }
+        // 회원 비밀번호 동일 여부 검사
+        changePassword(usersPasswordDto.getPassword(), usersPasswordDto.getChangePassword());
 
         users.updatePassword(usersPasswordDto.getPassword());
     }
@@ -83,6 +80,11 @@ public class UsersService {
 
     private void checkPassword(String password, String checkPassword){
         if (!password.equals(checkPassword))
+            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
+    }
+
+    private void changePassword(String password, String changePassword) {
+        if (password.equals(changePassword))
             throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
     }
 }
