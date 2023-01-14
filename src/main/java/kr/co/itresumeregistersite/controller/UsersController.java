@@ -11,18 +11,16 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
     private final UsersService usersService;
 
-    // TODO URL 및 @Mapping 등 Http Method에 대한 공부
-
     // 회원가입
     @PostMapping
-    public void signUp(@RequestBody SignUpDto signUpDto) {
+    public void signUp(SignUpDto signUpDto) {
         usersService.signUp(signUpDto);
     }
 
     // 회원정보 조회
     @GetMapping
-    public UsersInfoDto userInfo(String name) {
-        return usersService.userInfo(name);
+    public UsersInfoDto userInfo(String identity) {
+        return usersService.userInfo(identity);
     }
 
     // 회원정보 수정
@@ -31,7 +29,6 @@ public class UsersController {
         usersService.updateUser(usersUpdateDto);
     }
 
-    // TODO URL이 왜 겹치면 안뙤는지 이해하기
     // 회원 비밀번호 수정
     @PutMapping("/password")
     public void updatePassword(UsersPasswordDto usersPasswordDto) {

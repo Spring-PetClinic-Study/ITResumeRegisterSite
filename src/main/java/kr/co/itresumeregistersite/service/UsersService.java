@@ -27,8 +27,8 @@ public class UsersService {
 
     // 회원정보 조회
     @Transactional(readOnly = true)
-    public UsersInfoDto userInfo(String name) {
-        Users users = usersRepository.findByName(name)
+    public UsersInfoDto userInfo(String identity) {
+        Users users = usersRepository.findByIdentity(identity)
                 .orElseThrow(() -> new  UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
         return new UsersInfoDto(users.getName(), users.getEmail(), users.getBirth(), users.getGender());
