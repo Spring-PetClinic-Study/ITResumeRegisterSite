@@ -33,7 +33,7 @@ public class UsersService {
         Users users = usersRepository.findByIdentity(identity)
                 .orElseThrow(() -> new  UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
-        return new UsersInfoDto(users.getName(), users.getEmail(), users.getBirth(), users.getGender());
+        return Users.of(users);
     }
 
     // 전체 회원정보 조회
