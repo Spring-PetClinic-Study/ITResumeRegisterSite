@@ -1,4 +1,4 @@
-package kr.co.itresumeregistersite.domain.exception;
+package kr.co.itresumeregistersite.domain.exception.usersException;
 
 import kr.co.itresumeregistersite.global.exception.BaseException;
 import kr.co.itresumeregistersite.global.exception.BaseExceptionType;
