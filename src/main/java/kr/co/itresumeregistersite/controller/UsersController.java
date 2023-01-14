@@ -22,7 +22,7 @@ public class UsersController {
 
     // 회원정보 조회
     @GetMapping
-    public UsersInfoDto userInfo(@RequestParam("identity") String identity) {
+    public UsersInfoDto userInfo(@RequestParam(name = "identity") String identity) {
         return usersService.userInfo(identity);
     }
 
