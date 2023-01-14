@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UsersService {
@@ -32,6 +34,12 @@ public class UsersService {
                 .orElseThrow(() -> new  UsersException(UsersExceptionType.NOT_FOUND_USERS));
 
         return new UsersInfoDto(users.getName(), users.getEmail(), users.getBirth(), users.getGender());
+    }
+
+    // 전체 회원정보 조회
+    @Transactional(readOnly = true)
+    public List<Users> findAllUserInfo() {
+        return usersRepository.findAll();
     }
 
     // 회원정보 수정
@@ -68,17 +76,19 @@ public class UsersService {
     }
 
 
-
+    // 아이디 중복 검사
     private void checkIdentity(String identity){
         if (usersRepository.findByIdentity(identity).isPresent())
             throw new UsersException(UsersExceptionType.ALREADY_EXIST_USERSIDENTITY);
     }
 
+    // 비밀번호 확인 여부 검사
     private void checkPassword(String password, String checkPassword){
         if (!password.equals(checkPassword))
             throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
     }
 
+    // 비밀번호 일치 여부 검사
     private void changePassword(String password, String changePassword) {
         if (password.equals(changePassword))
             throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
