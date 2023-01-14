@@ -16,7 +16,7 @@ public class UsersController {
 
     // 회원가입
     @PostMapping
-    public void signUp(SignUpDto signUpDto) {
+    public void signUp(@RequestBody SignUpDto signUpDto) {
         usersService.signUp(signUpDto);
     }
 
