@@ -1,6 +1,5 @@
 package kr.co.itresumeregistersite.domain.dto.boardDto;
 
-import kr.co.itresumeregistersite.domain.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class BoardDto {
+public class PostSaveDto {
 
     private Long boardId;
 
