@@ -20,7 +20,7 @@ public class UsersController {
         usersService.signUp(signUpDto);
     }
 
-    // 회원정보 조회
+    // 회원 아이디 정보 조회
     @GetMapping
     public UsersInfoDto userInfo(@RequestParam(name = "identity") String identity) {
         return usersService.userInfo(identity);

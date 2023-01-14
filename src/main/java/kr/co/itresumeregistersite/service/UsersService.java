@@ -27,7 +27,7 @@ public class UsersService {
         usersRepository.save(users);
     }
 
-    // 회원정보 조회
+    // 회원 아이디 정보 조회
     @Transactional(readOnly = true)
     public UsersInfoDto userInfo(String identity) {
         Users users = usersRepository.findByIdentity(identity)
