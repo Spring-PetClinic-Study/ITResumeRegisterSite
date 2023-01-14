@@ -46,7 +46,7 @@ public class UsersController {
 
     // 회원탈퇴
     @DeleteMapping
-    public void delete(DeleteDto deleteDto) {
+    public void delete(@RequestBody DeleteDto deleteDto) {
         usersService.delete(deleteDto);
     }
 }
