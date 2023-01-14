@@ -1,6 +1,7 @@
 package kr.co.itresumeregistersite.controller;
 
-import kr.co.itresumeregistersite.domain.dto.boardDto.BoardDto;
+import kr.co.itresumeregistersite.domain.dto.boardDto.BoardInfoDto;
+import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
 import kr.co.itresumeregistersite.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,14 +15,17 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    // TODO 게시글 목록 -> 제목, 글쓴이만 보이게
+    // TODO 게시글 목록
+    public BoardInfoDto boardInfo(Long boardId) {
+        return boardService.boardInfo(boardId);
+    }
 
     // TODO 게시글 상세조회
 
-    // 게시글 작성
+    // 게시글 등록
     @PostMapping
-    public void writePost(BoardDto boardDto) {
-        boardService.savePost(boardDto);
+    public void postSave(PostSaveDto postSaveDto) {
+        boardService.postSave(postSaveDto);
     }
 
     // TODO 게시글 수정

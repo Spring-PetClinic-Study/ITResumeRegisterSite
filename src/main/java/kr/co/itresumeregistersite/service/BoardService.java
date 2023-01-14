@@ -1,13 +1,14 @@
 package kr.co.itresumeregistersite.service;
 
-import kr.co.itresumeregistersite.domain.dto.boardDto.BoardDto;
+import kr.co.itresumeregistersite.domain.dto.boardDto.BoardInfoDto;
+import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
 import kr.co.itresumeregistersite.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,11 +16,20 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    // TODO 게시글 작성
-    @Transactional
-    public void savePost(BoardDto boardDto) {
+    // TODO 게시글 목록
+    @Transactional(readOnly = true)
+    public BoardInfoDto boardInfo(Long boardId) {
+        Optional<Board> board = boardRepository.findById(boardId);
+        
+        return new BoardInfoDto();
+    }
 
-        final Board board = Board.of(boardDto);
+    // 게시글 작성
+    @Transactional
+    public void postSave(PostSaveDto postSaveDto) {
+
+        // TODO 제목, 작성자, 내용 미입력 시 예외 발생
+        final Board board = Board.of(postSaveDto);
         boardRepository.save(board);
     }
 }

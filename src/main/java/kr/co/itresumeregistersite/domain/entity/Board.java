@@ -1,6 +1,6 @@
 package kr.co.itresumeregistersite.domain.entity;
 
-import kr.co.itresumeregistersite.domain.dto.boardDto.BoardDto;
+import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,11 +33,11 @@ public class Board {
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate; // 수정일
 
-    public static Board of(BoardDto boardDto) {
+    public static Board of(PostSaveDto postBoardDto) {
         return Board.builder()
-                .title(boardDto.getTitle())
-                .content(boardDto.getContent())
-                .writer(boardDto.getWriter())
+                .title(postBoardDto.getTitle())
+                .content(postBoardDto.getContent())
+                .writer(postBoardDto.getWriter())
                 .createdDate(LocalDateTime.now())
                 .modifiedDate(LocalDateTime.now())
                 .build();
