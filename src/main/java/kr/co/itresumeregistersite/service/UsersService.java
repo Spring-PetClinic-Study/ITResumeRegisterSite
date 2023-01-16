@@ -2,14 +2,13 @@ package kr.co.itresumeregistersite.service;
 
 import kr.co.itresumeregistersite.domain.dto.usersDto.*;
 import kr.co.itresumeregistersite.domain.entity.Users;
-import kr.co.itresumeregistersite.domain.exception.usersException.UsersException;
-import kr.co.itresumeregistersite.domain.exception.usersException.UsersExceptionType;
+import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataException;
+import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExceptionType;
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +31,7 @@ public class UsersService {
     @Transactional(readOnly = true)
     public UsersInfoDto userInfo(String identity) {
         Users users = usersRepository.findByIdentity(identity)
-                .orElseThrow(() -> new  UsersException(UsersExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         return Users.of(users);
     }
@@ -47,7 +46,7 @@ public class UsersService {
     @Transactional
     public void updateUser(UsersUpdateDto usersUpdateDto) {
         Users users = usersRepository.findByIdentity(usersUpdateDto.getIdentity())
-                .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         users.update(usersUpdateDto.getEmail(), usersUpdateDto.getPhone(), usersUpdateDto.getAddress());
     }
@@ -56,7 +55,7 @@ public class UsersService {
     @Transactional
     public void updatePassword(UsersPasswordDto usersPasswordDto) {
         Users users = usersRepository.findByIdentity(usersPasswordDto.getIdentity())
-                .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         // 회원 비밀번호 동일 여부 검사
         changePassword(usersPasswordDto.getPassword(), usersPasswordDto.getChangePassword());
@@ -68,7 +67,7 @@ public class UsersService {
     @Transactional
     public void delete(DeleteDto deleteDto) {
         Users users = usersRepository.findByIdentity(deleteDto.getIdentity())
-                        .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
+                        .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         // 회원 비밀번호 동일 여부 검사
         checkPassword(deleteDto.getPassword(), deleteDto.getCheckPassword());
@@ -80,18 +79,18 @@ public class UsersService {
     // 아이디 중복 검사
     private void checkIdentity(String identity){
         if (usersRepository.findByIdentity(identity).isPresent())
-            throw new UsersException(UsersExceptionType.ALREADY_EXIST_USERSIDENTITY);
+            throw new NoSuchDataException(NoSuchDataExceptionType.ALREADY_EXIST_USERSIDENTITY);
     }
 
     // 비밀번호 확인 여부 검사
     private void checkPassword(String password, String checkPassword){
         if (!password.equals(checkPassword))
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
+            throw new NoSuchDataException(NoSuchDataExceptionType.WRONG_PASSWORD);
     }
 
     // 비밀번호 일치 여부 검사
     private void changePassword(String password, String changePassword) {
         if (password.equals(changePassword))
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
+            throw new NoSuchDataException(NoSuchDataExceptionType.WRONG_PASSWORD);
     }
 }
