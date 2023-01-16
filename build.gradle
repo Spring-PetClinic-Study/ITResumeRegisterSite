@@ -28,6 +28,9 @@ dependencies {
 
     // DB 연결
     implementation 'mysql:mysql-connector-java'
+
+    // Validation 연결
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
