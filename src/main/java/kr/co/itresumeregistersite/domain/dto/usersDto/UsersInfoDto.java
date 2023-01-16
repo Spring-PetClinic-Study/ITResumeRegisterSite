@@ -17,6 +17,5 @@ public class UsersInfoDto { // 회원조회 Dto
     private String birth;
 
     private String gender;
-
 }
 

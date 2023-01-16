@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,8 +39,8 @@ public class UsersService {
 
     // 전체 회원정보 조회
     @Transactional(readOnly = true)
-    public List<Users> findAllUserInfo() {
-        return usersRepository.findAll();
+    public List<Users> findAllUserInfo(UsersInfoDto usersInfoDto) {
+        return usersRepository.findAll(usersInfoDto);
     }
 
     // 회원정보 수정

@@ -5,6 +5,7 @@ import kr.co.itresumeregistersite.domain.dto.usersDto.UsersInfoDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

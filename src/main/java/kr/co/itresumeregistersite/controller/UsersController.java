@@ -28,8 +28,8 @@ public class UsersController {
 
     // 전체 회원정보 조회
     @GetMapping("/findAll")
-    public List<Users> findAllUserInfo() {
-        return usersService.findAllUserInfo();
+    public List<Users> findAllUserInfo(UsersInfoDto usersInfoDto) {
+        return usersService.findAllUserInfo(usersInfoDto);
     }
 
     // 회원정보 수정
