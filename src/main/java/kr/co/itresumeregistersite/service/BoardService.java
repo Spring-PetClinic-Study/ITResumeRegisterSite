@@ -2,11 +2,10 @@ package kr.co.itresumeregistersite.service;
 
 import kr.co.itresumeregistersite.domain.dto.boardDto.DeletePostDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.EditPostDto;
+import kr.co.itresumeregistersite.domain.dto.boardDto.PostInfoDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
-import kr.co.itresumeregistersite.domain.entity.Users;
 import kr.co.itresumeregistersite.repository.BoardRepository;
-import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +23,14 @@ public class BoardService {
     @Transactional(readOnly = true)
     public List<Board> findAllBoardInfo() {
         return boardRepository.findAll();
+    }
+
+    // 특정 게시글 조회
+    @Transactional
+    public PostInfoDto findBoardInfo(Long boardId) {
+        Board board = boardRepository.findByBoardId(boardId);
+
+        return Board.of(board);
     }
 
     // 게시글 작성

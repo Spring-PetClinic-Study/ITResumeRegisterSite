@@ -2,6 +2,7 @@ package kr.co.itresumeregistersite.controller;
 
 import kr.co.itresumeregistersite.domain.dto.boardDto.DeletePostDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.EditPostDto;
+import kr.co.itresumeregistersite.domain.dto.boardDto.PostInfoDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
 import kr.co.itresumeregistersite.service.BoardService;
@@ -21,6 +22,12 @@ public class BoardController {
     @GetMapping
     public List<Board> findAllBoardInfo() {
         return boardService.findAllBoardInfo();
+    }
+
+    // 특정 게시글 조회
+    @GetMapping("/title")
+    public PostInfoDto findBoardInfo(Long boardId) {
+        return boardService.findBoardInfo(boardId);
     }
 
     // 게시글 등록
