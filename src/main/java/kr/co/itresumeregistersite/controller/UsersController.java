@@ -26,10 +26,10 @@ public class UsersController {
         return usersService.userInfo(identity);
     }
 
-    // 전체 회원정보 조회
+    // TODO 전체 회원정보 조회
     @GetMapping("/findAll")
-    public List<Users> findAllUserInfo(UsersInfoDto usersInfoDto) {
-        return usersService.findAllUserInfo(usersInfoDto);
+    public List<UsersInfoDto> findAllUserInfo() {
+        return usersService.findAllUserInfo();
     }
 
     // 회원정보 수정

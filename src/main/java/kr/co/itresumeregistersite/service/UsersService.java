@@ -6,14 +6,26 @@ import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExce
 import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExceptionType;
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UsersService {
+
+    /* TODO
+        1. DB 연동
+        2. docker 실행
+        3. test 구현
+        4. Postman 실행
+        5. findAllUserInfo API 구현
+     */
+
     private final UsersRepository usersRepository;
 
     // 회원가입
@@ -36,10 +48,12 @@ public class UsersService {
         return Users.of(users);
     }
 
-    // 전체 회원정보 조회
+    // TODO 전체 회원정보 조회
     @Transactional(readOnly = true)
-    public List<Users> findAllUserInfo(UsersInfoDto usersInfoDto) {
-        return usersRepository.findAll(usersInfoDto);
+    public List<UsersInfoDto> findAllUserInfo() {
+        return usersRepository.findAll(Sort.by(Sort.Direction.ASC, "users_id")).stream()
+                .map(Users::of)
+                .collect(Collectors.toList());
     }
 
     // 회원정보 수정
