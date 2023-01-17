@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.controller;
 
+import kr.co.itresumeregistersite.domain.dto.boardDto.DeletePostDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.EditPostDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
@@ -34,6 +35,10 @@ public class BoardController {
         boardService.editPost(editPostDto);
     }
 
-    // TODO 게시글 삭제
+    // 게시글 삭제
+    @DeleteMapping
+    public void deletePost(DeletePostDto deletePostDto) {
+        boardService.deletePost(deletePostDto);
+    }
 
 }

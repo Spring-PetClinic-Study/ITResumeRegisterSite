@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.service;
 
+import kr.co.itresumeregistersite.domain.dto.boardDto.DeletePostDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.EditPostDto;
 import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
@@ -18,7 +19,6 @@ import java.util.Optional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final UsersRepository usersRepository;
 
     // 게시글 전체 목록 조회
     @Transactional(readOnly = true)
@@ -42,5 +42,13 @@ public class BoardService {
         Optional<Board> board = boardRepository.findById(editPostDto.getBoardId());
 
         board.get().edit(editPostDto.getTitle(), editPostDto.getContent());
+    }
+
+    // 게시글 삭제
+    @Transactional
+    public void deletePost(DeletePostDto deletePostDto) {
+        Optional<Board> board = boardRepository.findById(deletePostDto.getBoardId());
+
+        boardRepository.delete(board.get());
     }
 }
