@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,12 +16,10 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    // TODO 게시글 목록
+    // 게시글 전체 목록 조회
     @Transactional(readOnly = true)
-    public BoardInfoDto boardInfo(Long boardId) {
-        Optional<Board> board = boardRepository.findById(boardId);
-        
-        return new BoardInfoDto();
+    public List<Board> findAllboardInfo() {
+        return boardRepository.findAll();
     }
 
     // 게시글 작성
