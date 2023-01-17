@@ -33,14 +33,21 @@ public class Board {
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate; // 수정일
 
-    public static Board of(PostSaveDto postBoardDto) {
+    public static Board of(PostSaveDto postSaveDto) {
         return Board.builder()
-                .title(postBoardDto.getTitle())
-                .content(postBoardDto.getContent())
-                .writer(postBoardDto.getWriter())
+                .title(postSaveDto.getTitle())
+                .content(postSaveDto.getContent())
+                .writer(postSaveDto.getWriter())
                 .createdDate(LocalDateTime.now())
                 .modifiedDate(LocalDateTime.now())
                 .build();
+    }
+
+
+    public void edit(String title,
+                     String content) {
+        this.title = title;
+        this.content = content;
     }
 }
 
