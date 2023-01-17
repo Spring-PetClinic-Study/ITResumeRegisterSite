@@ -1,7 +1,6 @@
 package kr.co.itresumeregistersite.controller;
 
 import kr.co.itresumeregistersite.domain.dto.usersDto.*;
-import kr.co.itresumeregistersite.domain.entity.Users;
 import kr.co.itresumeregistersite.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

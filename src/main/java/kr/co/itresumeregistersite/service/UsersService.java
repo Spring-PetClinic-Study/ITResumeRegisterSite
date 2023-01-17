@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +21,7 @@ public class UsersService {
         2. docker 실행
         3. test 구현
         4. Postman 실행
-        5. findAllUserInfo API 구현
+        5. 성공적으로 실행되었을 시 메세지 출력
      */
 
     private final UsersRepository usersRepository;
