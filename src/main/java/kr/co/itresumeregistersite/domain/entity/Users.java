@@ -57,7 +57,6 @@ public class Users {
 
     public static UsersInfoDto of(Users users){
         return UsersInfoDto.builder()
-                .userId(users.getUsersId())
                 .name(users.getName())
                 .email(users.getEmail())
                 .birth(users.getBirth())

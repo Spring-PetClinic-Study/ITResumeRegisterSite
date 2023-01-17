@@ -10,8 +10,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UsersInfoDto { // 회원조회 Dto
 
-    private Long userId;
-
     private String name;
 
     private String email;

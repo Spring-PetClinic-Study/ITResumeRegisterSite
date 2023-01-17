@@ -51,7 +51,8 @@ public class UsersService {
     // 전체 회원정보 조회
     @Transactional(readOnly = true)
     public List<UsersInfoDto> findAllUserInfo() {
-        return usersRepository.findAll(Sort.by(Sort.Direction.ASC, "users_id")).stream()
+        return usersRepository.findAll(Sort.by(Sort.Direction.ASC, "users_id"))
+                .stream()
                 .map(Users::of)
                 .collect(Collectors.toList());
     }
