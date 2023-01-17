@@ -48,7 +48,7 @@ public class UsersService {
         return Users.of(users);
     }
 
-    // TODO 전체 회원정보 조회
+    // 전체 회원정보 조회
     @Transactional(readOnly = true)
     public List<UsersInfoDto> findAllUserInfo() {
         return usersRepository.findAll(Sort.by(Sort.Direction.ASC, "users_id")).stream()

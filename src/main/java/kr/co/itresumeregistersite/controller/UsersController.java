@@ -26,7 +26,7 @@ public class UsersController {
         return usersService.userInfo(identity);
     }
 
-    // TODO 전체 회원정보 조회
+    // 전체 회원정보 조회
     @GetMapping("/findAll")
     public List<UsersInfoDto> findAllUserInfo() {
         return usersService.findAllUserInfo();
