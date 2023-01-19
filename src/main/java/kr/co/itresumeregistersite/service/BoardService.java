@@ -19,14 +19,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BoardService {
 
-    /* TODO 게시판
+    /* TODO 게시판 ⭕️❌
         1. 게시글 작성
-            - I. title, writer, content 작성
-            - II. createdDate 할당
-            - III. title, writer, content 미입력 시 예외 발생
+            - I. title, writer, content 작성 ⭕
+            - II. createdDate 할당 ❌
+            - III. title, writer, content 미입력 시 예외 발생 ⭕
         2. 게시글 전체 조회
             - I. 모든 게시글 조회
-            - II. 각 게시글은 title, writer, createdDate / modifiedDate, comment count를 표시
+            - II. 각 게시글은 title, writer, createdDate / modifiedDate를 표시
             - III. 각 게시글은 한 페이지에 10개씩 조회
             - IV. 페이지로 구분
         3. 특정 게시글 조회
@@ -34,13 +34,10 @@ public class BoardService {
         4. 게시글 수정
             - I. 게시글 title 수정
             - II. 게시글 content 수정
-            - III. 게시글 comment 수정
+            - III. title, content가 null일 경우 예외 발생
         5. 게시글 삭제
             - I. 각 게시글의 boardId로 삭제
             - II. 모든 title, writer, content 삭제
-            - III. 모든 comment 삭제
-            - IV. 게시글 삭제 시 password를 입력받음
-            - V. 틀릴 경우 예외 발생
      */
 
     private final BoardRepository boardRepository;
@@ -75,10 +72,14 @@ public class BoardService {
     // 게시글 수정
     @Transactional
     public void editPost(EditPostDto editPostDto) {
-        // TODO 비밀번호를 입력받고 틀릴 경우 예외 발생
-        Optional<Board> board = boardRepository.findById(editPostDto.getBoardId());
+        Board board = boardRepository.findById(editPostDto.getBoardId())
+                        .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_POST));
 
-        board.get().edit(editPostDto.getTitle(), editPostDto.getContent());
+        // 제목, 내용이 비어있을 경우 예외 발생
+        NoInputTitle(editPostDto.getTitle());
+        NoInputContent(editPostDto.getContent());
+
+        board.edit(editPostDto.getTitle(), editPostDto.getContent());
     }
 
     // 게시글 삭제
@@ -88,8 +89,6 @@ public class BoardService {
 
         boardRepository.delete(board.get());
     }
-
-    // TODO 게시글 댓글
 
 
     // 제목 작성 여부 검사
