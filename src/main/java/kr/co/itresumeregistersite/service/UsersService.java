@@ -2,25 +2,22 @@ package kr.co.itresumeregistersite.service;
 
 import kr.co.itresumeregistersite.domain.dto.usersDto.*;
 import kr.co.itresumeregistersite.domain.entity.Users;
-import kr.co.itresumeregistersite.domain.exception.usersException.UsersException;
-import kr.co.itresumeregistersite.domain.exception.usersException.UsersExceptionType;
+import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataException;
+import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExceptionType;
 import kr.co.itresumeregistersite.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
 
-    // 사용하기 위해서 Spring Security에 대해 자세하게 공부
-//    private final PasswordEncoder passwordEncoder;
-
-
-    // TODO Transactional 사용 이유 공부하기.
     // 회원가입
     @Transactional
     public void signUp(SignUpDto signUpDto) {
@@ -32,66 +29,73 @@ public class UsersService {
         usersRepository.save(users);
     }
 
-    // TODO 회원 로그인 -> Spring Security로 구현하는 방법도 공부
-
-    // TODO 회원 로그아웃 -> SecurityContextHolder.clearContext()에 대해 공부
-
     // 회원정보 조회
-    public UsersInfoDto userInfo(Long userId) throws Exception {
-        // 일치하는 회원정보가 없을 경우 예외 처리
+    @Transactional(readOnly = true)
+    public UsersInfoDto userInfo(Long userId) {
         Users users = usersRepository.findById(userId)
-                .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
-        return new UsersInfoDto(users);
+        return Users.of(users);
+    }
+
+    // 전체 회원정보 조회
+    @Transactional(readOnly = true)
+    public List<UsersInfoDto> findAllUserInfo() {
+        return usersRepository.findAll(Sort.by(Sort.Direction.ASC, "users_id"))
+                .stream()
+                .map(Users::of)
+                .collect(Collectors.toList());
     }
 
     // 회원정보 수정
     @Transactional
-    public void updateUser(UsersUpdateDto usersUpdateDto) throws Exception {
+    public void updateUser(UsersUpdateDto usersUpdateDto) {
         Users users = usersRepository.findByIdentity(usersUpdateDto.getIdentity())
-                .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         users.update(usersUpdateDto.getEmail(), usersUpdateDto.getPhone(), usersUpdateDto.getAddress());
     }
 
+    // 회원 비밀번호 수정
     @Transactional
-    public void updatePassword(UsersPasswordDto usersPasswordDto) throws Exception {
-        // 회원 비밀번호 수정
+    public void updatePassword(UsersPasswordDto usersPasswordDto) {
         Users users = usersRepository.findByIdentity(usersPasswordDto.getIdentity())
-                .orElseThrow(() -> new UsersException(UsersExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
-        // 수정 전 비밀번호와 수정 후 비밀번호가 같을 경우 예외 처리
-        if (usersPasswordDto.getPassword().equals(usersPasswordDto.getChangePassword())) {
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
-        }
+        // 회원 비밀번호 동일 여부 검사
+        changePassword(usersPasswordDto.getPassword(), usersPasswordDto.getChangePassword());
 
         users.updatePassword(usersPasswordDto.getPassword());
     }
 
     // 회원탈퇴
     @Transactional
-    public void delete(DeleteDto deleteDto) throws Exception {
-        // TODO 회원탈퇴 시 아이디 또는 비밀번호(or 둘 다)를 입력받고 삭제, 틀릴 경우는 예외 처리
-        Optional<Users> users = usersRepository.findByIdentity(deleteDto.getIdentity());
+    public void delete(DeleteDto deleteDto) {
+        Users users = usersRepository.findByIdentity(deleteDto.getIdentity())
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
-        String oldPassword = users.get().getPassword();
-        String newPassword = deleteDto.getPassword();
+        // 회원 비밀번호 동일 여부 검사
+        checkPassword((deleteDto.getPassword()), deleteDto.getCheckPassword());
 
-        if (!(oldPassword.equals(newPassword))) {
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
-        }
-        else {
-            usersRepository.delete(users.get());
-        }
+        usersRepository.delete(users);
     }
 
+
+    // 아이디 중복 검사
     private void checkIdentity(String identity){
         if (usersRepository.findByIdentity(identity).isPresent())
-            throw new UsersException(UsersExceptionType.ALREADY_EXIST_USERSIDENTITY);
+            throw new NoSuchDataException(NoSuchDataExceptionType.ALREADY_EXIST_USERSIDENTITY);
     }
 
+    // 비밀번호 확인 여부 검사
     private void checkPassword(String password, String checkPassword){
         if (!password.equals(checkPassword))
-            throw new UsersException(UsersExceptionType.WRONG_PASSWORD);
+            throw new NoSuchDataException(NoSuchDataExceptionType.WRONG_PASSWORD);
+    }
+
+    // 비밀번호 일치 여부 검사
+    public void changePassword(String password, String changePassword) {
+        if (password.equals(changePassword))
+            throw new NoSuchDataException(NoSuchDataExceptionType.WRONG_PASSWORD);
     }
 }

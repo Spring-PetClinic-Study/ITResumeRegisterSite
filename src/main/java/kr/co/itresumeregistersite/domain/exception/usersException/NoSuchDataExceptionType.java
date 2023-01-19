@@ -1,9 +1,9 @@
-package kr.co.itresumeregistersite.domain.exception;
+package kr.co.itresumeregistersite.domain.exception.usersException;
 
 import kr.co.itresumeregistersite.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
 
-public enum UsersExceptionType implements BaseExceptionType {
+public enum NoSuchDataExceptionType implements BaseExceptionType {
 
     // 에러코드와 Http 상태코드 그리고 에러 메세지가 존재
 
@@ -18,7 +18,7 @@ public enum UsersExceptionType implements BaseExceptionType {
     private HttpStatus httpStatus;
     private String errorMessage;
 
-    UsersExceptionType(int errorCode, HttpStatus httpStatus, String errorMessage) {
+    NoSuchDataExceptionType(int errorCode, HttpStatus httpStatus, String errorMessage) {
         this.errorCode = errorCode;
         this.httpStatus = httpStatus;
         this.errorMessage = errorMessage;
