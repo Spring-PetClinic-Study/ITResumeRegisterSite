@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,13 +54,13 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    // 게시글 전체 목록 조회
+    // TODO 게시글 전체 목록 조회
     @Transactional(readOnly = true)
-    public List<Board> findAllBoardInfo() {
+    public List<Board> findAllPostInfo() {
         return boardRepository.findAll();
     }
 
-    // 특정 게시글 조회
+    // TODO 특정 게시글 조회
     @Transactional(readOnly = true)
     public PostInfoDto findPostInfo(Long boardId) {
         Board board = boardRepository.findById(boardId)

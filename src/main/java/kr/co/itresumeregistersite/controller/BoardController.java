@@ -27,7 +27,7 @@ public class BoardController {
     // 게시글 전체 목록 조회
     @GetMapping("/findAll")
     public List<Board> findAllPostInfo() {
-        return boardService.findAllBoardInfo();
+        return boardService.findAllPostInfo();
     }
 
     // 특정 게시글 조회
