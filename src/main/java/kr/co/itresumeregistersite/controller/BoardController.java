@@ -32,8 +32,8 @@ public class BoardController {
 
     // 특정 게시글 조회
     @GetMapping
-    public PostInfoDto findPostInfo(@RequestParam Long boardId) {
-        return boardService.findPostInfo(boardId);
+    public PostInfoDto findOnePostInfo(@RequestParam Long boardId) {
+        return boardService.findOnePostInfo(boardId);
     }
 
     // 게시글 수정
@@ -44,8 +44,8 @@ public class BoardController {
 
     // 게시글 삭제
     @DeleteMapping
-    public void deletePost(@RequestBody DeletePostDto deletePostDto) {
-        boardService.deletePost(deletePostDto);
+    public void deletePost(@RequestBody Long boardId) {
+        boardService.deletePost(boardId);
     }
 
 }

@@ -24,7 +24,7 @@ public class BoardService {
             - II. createdDate 할당 ❌
             - III. title, writer, content 미입력 시 예외 발생 ⭕
         2. 게시글 전체 조회
-            - I. 모든 게시글 조회
+            - I. 모든 게시글 조회 ⭕
             - II. 각 게시글은 title, writer, createdDate / modifiedDate를 표시
             - III. 각 게시글은 한 페이지에 10개씩 조회
             - IV. 페이지로 구분
@@ -54,7 +54,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    // TODO 게시글 전체 목록 조회
+    // 게시글 전체 목록 조회
     @Transactional(readOnly = true)
     public List<Board> findAllPostInfo() {
         return boardRepository.findAll();
@@ -62,7 +62,7 @@ public class BoardService {
 
     // TODO 특정 게시글 조회
     @Transactional(readOnly = true)
-    public PostInfoDto findPostInfo(Long boardId) {
+    public PostInfoDto findOnePostInfo(Long boardId) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_POST));
 
@@ -84,12 +84,8 @@ public class BoardService {
 
     // 게시글 삭제
     @Transactional
-    public void deletePost(DeletePostDto deletePostDto) {
-        // 작성된 게시글이 없을 경우 예외 발생
-        Board board = boardRepository.findById(deletePostDto.getBoardId())
-                        .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_POST));
-
-        boardRepository.delete(board);
+    public void deletePost(Long boardId) {
+        boardRepository.deleteById(boardId);
     }
 
 
