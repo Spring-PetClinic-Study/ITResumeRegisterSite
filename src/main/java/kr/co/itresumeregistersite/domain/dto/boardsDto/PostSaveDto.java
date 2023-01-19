@@ -1,4 +1,4 @@
-package kr.co.itresumeregistersite.domain.dto.boardDto;
+package kr.co.itresumeregistersite.domain.dto.boardsDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +22,4 @@ public class PostSaveDto {
     private String writer;
 
     private LocalDateTime createdDate;
-
-    private LocalDateTime modifiedDate;
 }

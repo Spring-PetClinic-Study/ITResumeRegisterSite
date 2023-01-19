@@ -1,7 +1,7 @@
 package kr.co.itresumeregistersite.domain.entity;
 
-import kr.co.itresumeregistersite.domain.dto.boardDto.PostInfoDto;
-import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
+import kr.co.itresumeregistersite.domain.dto.boardsDto.PostInfoDto;
+import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +28,7 @@ public class Board {
     @Column(length = 20, nullable = false)
     private String writer;  // 작성자
 
+    // TODO BaseTimeEntity에 대해서 공부
     @Column(name = "created_date")
     private LocalDateTime createdDate;  // 생성일
 
@@ -40,7 +41,6 @@ public class Board {
                 .content(postSaveDto.getContent())
                 .writer(postSaveDto.getWriter())
                 .createdDate(LocalDateTime.now())
-                .modifiedDate(LocalDateTime.now())
                 .build();
     }
 
