@@ -1,6 +1,5 @@
 package kr.co.itresumeregistersite.service;
 
-import kr.co.itresumeregistersite.domain.dto.boardsDto.DeletePostDto;
 import kr.co.itresumeregistersite.domain.dto.boardsDto.EditPostDto;
 import kr.co.itresumeregistersite.domain.dto.boardsDto.PostInfoDto;
 import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -60,13 +60,12 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
-    // TODO 특정 게시글 조회
+    // 특정 게시글 조회
     @Transactional(readOnly = true)
     public PostInfoDto findOnePostInfo(Long boardId) {
-        Board board = boardRepository.findById(boardId)
-                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_POST));
+        Optional<Board> board = boardRepository.findById(boardId);
 
-        return Board.of(board);
+        return Board.of(board.get());
     }
 
     // 게시글 수정
