@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository usersRepository;
+    private final UserRepository userRepository;
 
     // 회원가입
     @Transactional
@@ -26,13 +26,13 @@ public class UserService {
         checkPassword(signUpDto.getPassword(), signUpDto.getCheckPassword());
 
         final Users users = Users.of(signUpDto);
-        usersRepository.save(users);
+        userRepository.save(users);
     }
 
     // 회원정보 조회
     @Transactional(readOnly = true)
     public UsersInfoDto userInfo(Long userId) {
-        Users users = usersRepository.findById(userId)
+        Users users = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         return Users.of(users);
@@ -41,7 +41,7 @@ public class UserService {
     // 전체 회원정보 조회
     @Transactional(readOnly = true)
     public List<UsersInfoDto> findAllUserInfo() {
-        return usersRepository.findAll(Sort.by(Sort.Direction.ASC, "users_id"))
+        return userRepository.findAll(Sort.by(Sort.Direction.ASC, "users_id"))
                 .stream()
                 .map(Users::of)
                 .collect(Collectors.toList());
@@ -50,7 +50,7 @@ public class UserService {
     // 회원정보 수정
     @Transactional
     public void updateUser(UsersUpdateDto usersUpdateDto) {
-        Users users = usersRepository.findByIdentity(usersUpdateDto.getIdentity())
+        Users users = userRepository.findByIdentity(usersUpdateDto.getIdentity())
                 .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         users.update(usersUpdateDto.getEmail(), usersUpdateDto.getPhone(), usersUpdateDto.getAddress());
@@ -59,7 +59,7 @@ public class UserService {
     // 회원 비밀번호 수정
     @Transactional
     public void updatePassword(UsersPasswordDto usersPasswordDto) {
-        Users users = usersRepository.findByIdentity(usersPasswordDto.getIdentity())
+        Users users = userRepository.findByIdentity(usersPasswordDto.getIdentity())
                 .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         // 회원 비밀번호 동일 여부 검사
@@ -71,19 +71,19 @@ public class UserService {
     // 회원탈퇴
     @Transactional
     public void delete(DeleteDto deleteDto) {
-        Users users = usersRepository.findByIdentity(deleteDto.getIdentity())
+        Users users = userRepository.findByIdentity(deleteDto.getIdentity())
                 .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         // 회원 비밀번호 동일 여부 검사
         checkPassword((deleteDto.getPassword()), deleteDto.getCheckPassword());
 
-        usersRepository.delete(users);
+        userRepository.delete(users);
     }
 
 
     // 아이디 중복 검사
     private void checkIdentity(String identity){
-        if (usersRepository.findByIdentity(identity).isPresent())
+        if (userRepository.findByIdentity(identity).isPresent())
             throw new NoSuchDataException(NoSuchDataExceptionType.ALREADY_EXIST_USERSIDENTITY);
     }
 

@@ -11,40 +11,40 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "/users")
 public class UserController {
-    private final UserService usersService;
+    private final UserService userService;
 
     // 회원가입
     @PostMapping
     public void signUp(@RequestBody SignUpDto signUpDto) {
-        usersService.signUp(signUpDto);
+        userService.signUp(signUpDto);
     }
 
     // 회원정보 조회
     @GetMapping
     public UsersInfoDto userInfo(Long userId) {
-        return usersService.userInfo(userId);
+        return userService.userInfo(userId);
     }
 
     // 전체 회원정보 조회
     @GetMapping("/findAll")
     public List<UsersInfoDto> findAllUserInfo() {
-        return usersService.findAllUserInfo();
+        return userService.findAllUserInfo();
     }
 
     // 회원정보 수정
     @PutMapping
     public void updateUser(UsersUpdateDto usersUpdateDto) {
-        usersService.updateUser(usersUpdateDto);
+        userService.updateUser(usersUpdateDto);
     }
 
     @PutMapping("/password")
     public void updatePassword(UsersPasswordDto usersPasswordDto) {
-        usersService.updatePassword(usersPasswordDto);
+        userService.updatePassword(usersPasswordDto);
     }
 
     // 회원탈퇴
     @DeleteMapping
     public void delete(DeleteDto deleteDto) {
-        usersService.delete(deleteDto);
+        userService.delete(deleteDto);
     }
 }
