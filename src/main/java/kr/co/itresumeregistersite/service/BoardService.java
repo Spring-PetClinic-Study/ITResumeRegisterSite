@@ -85,9 +85,11 @@ public class BoardService {
     // 게시글 삭제
     @Transactional
     public void deletePost(DeletePostDto deletePostDto) {
-        Optional<Board> board = boardRepository.findById(deletePostDto.getBoardId());
+        // 작성된 게시글이 없을 경우 예외 발생
+        Board board = boardRepository.findById(deletePostDto.getBoardId())
+                        .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_POST));
 
-        boardRepository.delete(board.get());
+        boardRepository.delete(board);
     }
 
 

@@ -1,9 +1,9 @@
 package kr.co.itresumeregistersite.controller;
 
-import kr.co.itresumeregistersite.domain.dto.boardDto.DeletePostDto;
-import kr.co.itresumeregistersite.domain.dto.boardDto.EditPostDto;
-import kr.co.itresumeregistersite.domain.dto.boardDto.PostInfoDto;
-import kr.co.itresumeregistersite.domain.dto.boardDto.PostSaveDto;
+import kr.co.itresumeregistersite.domain.dto.boardsDto.DeletePostDto;
+import kr.co.itresumeregistersite.domain.dto.boardsDto.EditPostDto;
+import kr.co.itresumeregistersite.domain.dto.boardsDto.PostInfoDto;
+import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
 import kr.co.itresumeregistersite.service.BoardService;
 import lombok.RequiredArgsConstructor;

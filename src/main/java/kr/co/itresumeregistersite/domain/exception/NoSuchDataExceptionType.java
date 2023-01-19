@@ -21,7 +21,7 @@ public enum NoSuchDataExceptionType implements BaseExceptionType {
 
     CONTENT_NOT_EXIST(605, HttpStatus.OK, "내용을 입력해주세요!"),
 
-    NOT_FOUND_POST(605, HttpStatus.OK, "작성된 게시글이 없습니다!");
+    NOT_FOUND_POST(606, HttpStatus.OK, "작성된 게시글이 없습니다!");
 
 
     private int errorCode;
