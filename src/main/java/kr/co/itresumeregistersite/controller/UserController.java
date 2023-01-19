@@ -21,8 +21,8 @@ public class UserController {
 
     // 회원정보 조회
     @GetMapping
-    public UsersInfoDto userInfo(Long userId) {
-        return userService.userInfo(userId);
+    public UsersInfoDto userInfo(@RequestParam String identity) {
+        return userService.userInfo(identity);
     }
 
     // 전체 회원정보 조회
@@ -33,18 +33,18 @@ public class UserController {
 
     // 회원정보 수정
     @PutMapping
-    public void updateUser(UsersUpdateDto usersUpdateDto) {
+    public void updateUser(@RequestBody UsersUpdateDto usersUpdateDto) {
         userService.updateUser(usersUpdateDto);
     }
 
     @PutMapping("/password")
-    public void updatePassword(UsersPasswordDto usersPasswordDto) {
+    public void updatePassword(@RequestBody UsersPasswordDto usersPasswordDto) {
         userService.updatePassword(usersPasswordDto);
     }
 
     // 회원탈퇴
     @DeleteMapping
-    public void delete(DeleteDto deleteDto) {
+    public void delete(@RequestBody DeleteDto deleteDto) {
         userService.delete(deleteDto);
     }
 }

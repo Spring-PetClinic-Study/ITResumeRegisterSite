@@ -2,8 +2,8 @@ package kr.co.itresumeregistersite.service;
 
 import kr.co.itresumeregistersite.domain.dto.usersDto.*;
 import kr.co.itresumeregistersite.domain.entity.Users;
-import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataException;
-import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExceptionType;
+import kr.co.itresumeregistersite.domain.exception.NoSuchDataException;
+import kr.co.itresumeregistersite.domain.exception.NoSuchDataExceptionType;
 import kr.co.itresumeregistersite.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -31,8 +31,8 @@ public class UserService {
 
     // 회원정보 조회
     @Transactional(readOnly = true)
-    public UsersInfoDto userInfo(Long userId) {
-        Users users = userRepository.findById(userId)
+    public UsersInfoDto userInfo(String identity) {
+        Users users = userRepository.findByIdentity(identity)
                 .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
 
         return Users.of(users);
