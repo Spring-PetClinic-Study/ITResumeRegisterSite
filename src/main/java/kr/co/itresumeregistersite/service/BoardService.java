@@ -63,8 +63,9 @@ public class BoardService {
 
     // 특정 게시글 조회
     @Transactional(readOnly = true)
-    public PostInfoDto findBoardInfo(Long boardId) {
-        Board board = boardRepository.findByBoardId(boardId);
+    public PostInfoDto findPostInfo(Long boardId) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_POST));
 
         return Board.of(board);
     }
