@@ -1,4 +1,4 @@
-package kr.co.itresumeregistersite.domain.dto.boardDto;
+package kr.co.itresumeregistersite.domain.dto.boardsDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
