@@ -4,7 +4,7 @@ import kr.co.itresumeregistersite.domain.dto.usersDto.*;
 import kr.co.itresumeregistersite.domain.entity.Users;
 import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataException;
 import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExceptionType;
-import kr.co.itresumeregistersite.repository.UsersRepository;
+import kr.co.itresumeregistersite.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UsersService {
-    private final UsersRepository usersRepository;
+public class UserService {
+    private final UserRepository usersRepository;
 
     // 회원가입
     @Transactional

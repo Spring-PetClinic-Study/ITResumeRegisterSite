@@ -1,7 +1,7 @@
 package kr.co.itresumeregistersite.controller;
 
 import kr.co.itresumeregistersite.domain.dto.usersDto.*;
-import kr.co.itresumeregistersite.service.UsersService;
+import kr.co.itresumeregistersite.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +10,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/users")
-public class UsersController {
-    private final UsersService usersService;
+public class UserController {
+    private final UserService usersService;
 
     // 회원가입
     @PostMapping
