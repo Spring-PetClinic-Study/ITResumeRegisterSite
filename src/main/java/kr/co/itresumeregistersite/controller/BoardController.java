@@ -17,6 +17,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+
     // 게시글 등록
     @PostMapping
     public void postSave(@RequestBody PostSaveDto postSaveDto) {
@@ -24,13 +25,13 @@ public class BoardController {
     }
 
     // 게시글 전체 목록 조회
-    @GetMapping
-    public List<Board> findAllBoardInfo() {
+    @GetMapping("/findAll")
+    public List<Board> findAllPostInfo() {
         return boardService.findAllBoardInfo();
     }
 
     // 특정 게시글 조회
-    @GetMapping("/title")
+    @GetMapping
     public PostInfoDto findPostInfo(@RequestParam Long boardId) {
         return boardService.findPostInfo(boardId);
     }
