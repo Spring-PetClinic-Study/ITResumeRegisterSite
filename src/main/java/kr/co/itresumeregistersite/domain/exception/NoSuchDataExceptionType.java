@@ -1,4 +1,4 @@
-package kr.co.itresumeregistersite.domain.exception.usersException;
+package kr.co.itresumeregistersite.domain.exception;
 
 import kr.co.itresumeregistersite.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
@@ -10,9 +10,17 @@ public enum NoSuchDataExceptionType implements BaseExceptionType {
     // 회원가입, 로그인을 할 경우
     ALREADY_EXIST_USERSIDENTITY(600, HttpStatus.OK, "이미 존재하는 아이디입니다!"),
 
-    WRONG_PASSWORD(602, HttpStatus.OK, "비밀번호가 잘못되었습니다!"),
+    WRONG_PASSWORD(601, HttpStatus.OK, "비밀번호가 잘못되었습니다!"),
 
-    NOT_FOUND_USERS(603, HttpStatus.OK, "회원정보가 없습니다!");
+    NOT_FOUND_USERS(602, HttpStatus.OK, "회원정보가 없습니다!"),
+
+    // 게시글 내용 미입력할 경우
+    TITLE_NOT_EXIST(603, HttpStatus.OK, "제목을 입력해주세요!"),
+
+    WRITER_NOT_EXIST(604, HttpStatus.OK, "작성자를 입력해주세요!"),
+
+    CONTENT_NOT_EXIST(605, HttpStatus.OK, "내용을 입력해주세요!");
+
 
     private int errorCode;
     private HttpStatus httpStatus;
