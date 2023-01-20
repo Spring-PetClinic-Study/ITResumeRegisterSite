@@ -7,6 +7,10 @@ import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
 import kr.co.itresumeregistersite.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +30,17 @@ public class BoardController {
 
     // 게시글 전체 목록 조회
     @GetMapping("/findAll")
-    public List<Board> findAllPostInfo() {
-        return boardService.findAllPostInfo();
+    public Page<Board> findAllPostInfo(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC)
+                                           Pageable pageable) {
+        return boardService.findAllPostInfo(pageable);
     }
 
     // 특정 게시글 조회
     @GetMapping
-    public PostInfoDto findOnePostInfo(@RequestParam Long boardId) {
-        return boardService.findOnePostInfo(boardId);
+    public List<Board> search(@RequestParam String keyword) {
+        List<Board> searchList = boardService.search(keyword);
+
+        return searchList;
     }
 
     // 게시글 수정
