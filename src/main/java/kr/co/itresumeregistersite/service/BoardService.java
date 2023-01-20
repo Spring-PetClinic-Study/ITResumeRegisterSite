@@ -1,7 +1,6 @@
 package kr.co.itresumeregistersite.service;
 
 import kr.co.itresumeregistersite.domain.dto.boardsDto.EditPostDto;
-import kr.co.itresumeregistersite.domain.dto.boardsDto.PostInfoDto;
 import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
 import kr.co.itresumeregistersite.domain.exception.NoSuchDataException;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -67,8 +65,8 @@ public class BoardService {
 
     // 특정 게시글 조회
     @Transactional(readOnly = true)
-    public List<Board> search(String title) {
-        List<Board> boardList = boardRepository.findByTitle(title);
+    public List<Board> search(String title, Pageable pageable) {
+        List<Board> boardList = boardRepository.findByTitle(title, pageable);
 
         return boardList;
     }

@@ -1,8 +1,6 @@
 package kr.co.itresumeregistersite.controller;
 
-import kr.co.itresumeregistersite.domain.dto.boardsDto.DeletePostDto;
 import kr.co.itresumeregistersite.domain.dto.boardsDto.EditPostDto;
-import kr.co.itresumeregistersite.domain.dto.boardsDto.PostInfoDto;
 import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
 import kr.co.itresumeregistersite.domain.entity.Board;
 import kr.co.itresumeregistersite.service.BoardService;
@@ -30,17 +28,15 @@ public class BoardController {
 
     // 게시글 전체 목록 조회
     @GetMapping("/findAll")
-    public Page<Board> findAllPostInfo(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC)
-                                           Pageable pageable) {
+    public Page<Board> findAllPostInfo(@PageableDefault(size = 10, sort = "board_id",
+            direction = Sort.Direction.DESC) Pageable pageable) {
         return boardService.findAllPostInfo(pageable);
     }
 
     // 특정 게시글 조회
     @GetMapping
-    public List<Board> search(@RequestParam String title) {
-        List<Board> searchList = boardService.search(title);
-
-        return searchList;
+    public List<Board> search(@RequestParam String title, Pageable pageable) {
+        return boardService.search(title, pageable);
     }
 
     // 게시글 수정

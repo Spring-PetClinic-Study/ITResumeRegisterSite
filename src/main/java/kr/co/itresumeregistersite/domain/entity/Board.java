@@ -1,6 +1,5 @@
 package kr.co.itresumeregistersite.domain.entity;
 
-import kr.co.itresumeregistersite.domain.dto.boardsDto.PostInfoDto;
 import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
 import lombok.*;
 
@@ -41,16 +40,6 @@ public class Board {
                 .content(postSaveDto.getContent())
                 .writer(postSaveDto.getWriter())
                 .createdDate(LocalDateTime.now())
-                .build();
-    }
-
-    public static PostInfoDto of(Board board) {
-        return PostInfoDto.builder()
-                .title(board.getTitle())
-                .content(board.getContent())
-                .writer(board.getWriter())
-                .createdDate(board.getCreatedDate())
-                .modifiedDate(board.getModifiedDate())
                 .build();
     }
 
