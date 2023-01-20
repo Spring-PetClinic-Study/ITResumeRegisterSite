@@ -18,24 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
-    /* TODO 게시판
-        1. 게시글 작성
-            - I. title, writer, content 작성 ⭕
-            - II. title, writer, content 미입력 시 예외 발생 ⭕
-        2. 게시글 전체 조회
-            - I. 모든 게시글 조회 ⭕
-            - II. paging ❌
-        3. 특정 게시글 조회
-            - I. 해당 번호로 게시글 조회 ⭕
-            - II. paging ❌
-        4. 게시글 수정
-            - I. 게시글 title 수정 ⭕
-            - II. 게시글 content 수정 ⭕
-            - III. title, content가 null일 경우 예외 발생 ⭕
-        5. 게시글 삭제
-            - I. 각 게시글을 boardId로 삭제 ⭕
-     */
-
     /* TODO
         1. Exception
         2. Response Format API
