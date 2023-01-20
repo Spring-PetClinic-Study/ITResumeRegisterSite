@@ -1,6 +1,6 @@
-package kr.co.itresumeregistersite.domain.entity;
+package kr.co.itresumeregistersite.domain.entity.board;
 
-import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
+import kr.co.itresumeregistersite.domain.entity.board.dto.PostSaveDto;
 import lombok.*;
 
 import javax.persistence.*;

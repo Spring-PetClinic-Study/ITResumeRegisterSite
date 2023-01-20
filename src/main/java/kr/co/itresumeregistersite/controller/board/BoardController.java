@@ -1,9 +1,9 @@
-package kr.co.itresumeregistersite.controller;
+package kr.co.itresumeregistersite.controller.board;
 
-import kr.co.itresumeregistersite.domain.dto.boardsDto.EditPostDto;
-import kr.co.itresumeregistersite.domain.dto.boardsDto.PostSaveDto;
-import kr.co.itresumeregistersite.domain.entity.Board;
-import kr.co.itresumeregistersite.service.BoardService;
+import kr.co.itresumeregistersite.domain.entity.board.dto.EditPostDto;
+import kr.co.itresumeregistersite.domain.entity.board.dto.PostSaveDto;
+import kr.co.itresumeregistersite.domain.entity.board.Board;
+import kr.co.itresumeregistersite.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

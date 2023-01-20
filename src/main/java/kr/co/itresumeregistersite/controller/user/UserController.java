@@ -1,7 +1,7 @@
-package kr.co.itresumeregistersite.controller;
+package kr.co.itresumeregistersite.controller.user;
 
-import kr.co.itresumeregistersite.domain.dto.usersDto.*;
-import kr.co.itresumeregistersite.service.UserService;
+import kr.co.itresumeregistersite.domain.entity.user.dto.*;
+import kr.co.itresumeregistersite.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,25 +21,25 @@ public class UserController {
 
     // 회원정보 조회
     @GetMapping
-    public UsersInfoDto userInfo(@RequestParam String identity) {
+    public UserInfoDto userInfo(@RequestParam String identity) {
         return userService.userInfo(identity);
     }
 
     // 전체 회원정보 조회
     @GetMapping("/findAll")
-    public List<UsersInfoDto> findAllUserInfo() {
+    public List<UserInfoDto> findAllUserInfo() {
         return userService.findAllUserInfo();
     }
 
     // 회원정보 수정
     @PutMapping
-    public void updateUser(@RequestBody UsersUpdateDto usersUpdateDto) {
-        userService.updateUser(usersUpdateDto);
+    public void updateUser(@RequestBody UpdateDto updateDto) {
+        userService.updateUser(updateDto);
     }
 
     @PutMapping("/password")
-    public void updatePassword(@RequestBody UsersPasswordDto usersPasswordDto) {
-        userService.updatePassword(usersPasswordDto);
+    public void updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
+        userService.updatePassword(updatePasswordDto);
     }
 
     // 회원탈퇴

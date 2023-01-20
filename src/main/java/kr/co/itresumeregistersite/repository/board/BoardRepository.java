@@ -1,6 +1,6 @@
-package kr.co.itresumeregistersite.repository;
+package kr.co.itresumeregistersite.repository.board;
 
-import kr.co.itresumeregistersite.domain.entity.Board;
+import kr.co.itresumeregistersite.domain.entity.board.Board;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

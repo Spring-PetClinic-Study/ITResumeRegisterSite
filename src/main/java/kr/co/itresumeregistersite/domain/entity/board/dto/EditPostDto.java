@@ -1,4 +1,4 @@
-package kr.co.itresumeregistersite.domain.dto.boardsDto;
+package kr.co.itresumeregistersite.domain.entity.board.dto;
 
 import lombok.Getter;
 

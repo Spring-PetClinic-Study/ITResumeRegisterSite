@@ -1,5 +1,6 @@
-package kr.co.itresumeregistersite.domain.entity;
+package kr.co.itresumeregistersite.domain.entity.resume;
 
+import kr.co.itresumeregistersite.domain.entity.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class Resume {
 
     @ManyToOne
     @JoinColumn(name = "User_Id", referencedColumnName = "ID")
-    private Users userId;   // foreign Key
+    private User userId;   // foreign Key
 
     @Column(name = "school_name", length = 30, nullable = false)
     private String schoolName;  // 학교명

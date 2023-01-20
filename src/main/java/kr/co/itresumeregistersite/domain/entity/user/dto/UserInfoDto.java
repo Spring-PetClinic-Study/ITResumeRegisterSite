@@ -1,6 +1,5 @@
-package kr.co.itresumeregistersite.domain.dto.usersDto;
+package kr.co.itresumeregistersite.domain.entity.user.dto;
 
-import kr.co.itresumeregistersite.domain.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class UsersInfoDto { // 회원조회 Dto
+public class UserInfoDto { // 회원조회 Dto
 
     private String name;
 

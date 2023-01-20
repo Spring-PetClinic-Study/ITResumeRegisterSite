@@ -1,5 +1,6 @@
-package kr.co.itresumeregistersite.domain.entity;
+package kr.co.itresumeregistersite.domain.entity.career;
 
+import kr.co.itresumeregistersite.domain.entity.resume.Resume;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

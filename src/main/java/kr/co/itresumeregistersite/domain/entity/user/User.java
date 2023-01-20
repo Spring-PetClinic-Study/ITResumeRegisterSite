@@ -1,7 +1,7 @@
-package kr.co.itresumeregistersite.domain.entity;
+package kr.co.itresumeregistersite.domain.entity.user;
 
-import kr.co.itresumeregistersite.domain.dto.usersDto.SignUpDto;
-import kr.co.itresumeregistersite.domain.dto.usersDto.UsersInfoDto;
+import kr.co.itresumeregistersite.domain.entity.user.dto.SignUpDto;
+import kr.co.itresumeregistersite.domain.entity.user.dto.UserInfoDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "tbl_users")
-public class Users {
+public class User {
 
     @Id @GeneratedValue
     @Column(name = "users_id")
@@ -42,8 +42,8 @@ public class Users {
     @Column(length = 10, nullable = false)
     private String gender;  // 성별
 
-    public static Users of(SignUpDto signUpDto){
-        return Users.builder()
+    public static User of(SignUpDto signUpDto){
+        return User.builder()
                 .identity(signUpDto.getIdentity())
                 .password(signUpDto.getPassword())
                 .name(signUpDto.getName())
@@ -55,8 +55,8 @@ public class Users {
                 .build();
     }
 
-    public static UsersInfoDto of(Users users) {
-        return UsersInfoDto.builder()
+    public static UserInfoDto of(User users) {
+        return UserInfoDto.builder()
                 .name(users.getName())
                 .email(users.getEmail())
                 .birth(users.getBirth())
