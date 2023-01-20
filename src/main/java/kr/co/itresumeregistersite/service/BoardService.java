@@ -67,8 +67,8 @@ public class BoardService {
 
     // 특정 게시글 조회
     @Transactional(readOnly = true)
-    public List<Board> search(String keyword) {
-        List<Board> boardList = boardRepository.findByTitle(keyword);
+    public List<Board> search(String title) {
+        List<Board> boardList = boardRepository.findByTitle(title);
 
         return boardList;
     }

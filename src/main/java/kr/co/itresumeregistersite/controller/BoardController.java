@@ -37,8 +37,8 @@ public class BoardController {
 
     // 특정 게시글 조회
     @GetMapping
-    public List<Board> search(@RequestParam String keyword) {
-        List<Board> searchList = boardService.search(keyword);
+    public List<Board> search(@RequestParam String title) {
+        List<Board> searchList = boardService.search(title);
 
         return searchList;
     }
