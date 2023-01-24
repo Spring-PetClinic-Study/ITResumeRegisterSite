@@ -1,6 +1,6 @@
 package kr.co.itresumeregistersite.domain.entity.board;
 
-import kr.co.itresumeregistersite.domain.entity.board.dto.PostSaveDto;
+import kr.co.itresumeregistersite.domain.entity.board.dto.SavePostDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,14 +27,13 @@ public class Board {
     @Column(length = 20, nullable = false)
     private String writer;  // 작성자
 
-    // TODO BaseTimeEntity에 대해서 공부
     @Column(name = "created_date")
     private LocalDateTime createdDate;  // 생성일
 
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate; // 수정일
 
-    public static Board of(PostSaveDto postSaveDto) {
+    public static Board of(SavePostDto postSaveDto) {
         return Board.builder()
                 .title(postSaveDto.getTitle())
                 .content(postSaveDto.getContent())

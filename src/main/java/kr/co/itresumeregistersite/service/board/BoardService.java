@@ -1,7 +1,7 @@
 package kr.co.itresumeregistersite.service.board;
 
 import kr.co.itresumeregistersite.domain.entity.board.dto.EditPostDto;
-import kr.co.itresumeregistersite.domain.entity.board.dto.PostSaveDto;
+import kr.co.itresumeregistersite.domain.entity.board.dto.SavePostDto;
 import kr.co.itresumeregistersite.domain.entity.board.Board;
 import kr.co.itresumeregistersite.domain.exception.NoSuchDataException;
 import kr.co.itresumeregistersite.domain.exception.NoSuchDataExceptionType;
@@ -22,20 +22,21 @@ public class BoardService {
         1. Exception
         2. Response Format API
         3. test
+        4. comment
      */
 
     private final BoardRepository boardRepository;
 
     // 게시글 작성
     @Transactional
-    public void postSave(PostSaveDto postSaveDto) {
+    public void postSave(SavePostDto savePostDto) {
 
         // 제목, 작성자, 내용 미입력 시 예외 발생
-        NoInputTitle(postSaveDto.getTitle());
-        NoInputWriter(postSaveDto.getWriter());
-        NoInputContent(postSaveDto.getContent());
+        NoInputTitle(savePostDto.getTitle());
+        NoInputWriter(savePostDto.getWriter());
+        NoInputContent(savePostDto.getContent());
 
-        final Board board = Board.of(postSaveDto);
+        final Board board = Board.of(savePostDto);
         boardRepository.save(board);
     }
 

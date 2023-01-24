@@ -1,7 +1,7 @@
 package kr.co.itresumeregistersite.controller.board;
 
 import kr.co.itresumeregistersite.domain.entity.board.dto.EditPostDto;
-import kr.co.itresumeregistersite.domain.entity.board.dto.PostSaveDto;
+import kr.co.itresumeregistersite.domain.entity.board.dto.SavePostDto;
 import kr.co.itresumeregistersite.domain.entity.board.Board;
 import kr.co.itresumeregistersite.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,8 @@ public class BoardController {
 
     // 게시글 등록
     @PostMapping
-    public void postSave(@RequestBody PostSaveDto postSaveDto) {
-        boardService.postSave(postSaveDto);
+    public void postSave(@RequestBody SavePostDto savePostDto) {
+        boardService.postSave(savePostDto);
     }
 
     // 게시글 전체 목록 조회

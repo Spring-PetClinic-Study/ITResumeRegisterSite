@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class PostSaveDto {
+public class SavePostDto {
 
     private Long boardId;
 
