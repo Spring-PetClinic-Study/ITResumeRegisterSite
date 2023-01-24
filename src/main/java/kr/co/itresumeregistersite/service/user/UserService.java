@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
 
+    // test
     // 회원가입
     @Transactional
     public void signUp(SignUpDto signUpDto) {
