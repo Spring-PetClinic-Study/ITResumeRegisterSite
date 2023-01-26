@@ -2,8 +2,8 @@ package kr.co.itresumeregistersite.service.user;
 
 import kr.co.itresumeregistersite.domain.entity.user.User;
 import kr.co.itresumeregistersite.domain.entity.user.dto.*;
-import kr.co.itresumeregistersite.domain.exception.NoSuchDataException;
-import kr.co.itresumeregistersite.domain.exception.NoSuchDataExceptionType;
+import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataException;
+import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExceptionType;
 import kr.co.itresumeregistersite.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;

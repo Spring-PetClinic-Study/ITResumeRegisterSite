@@ -5,16 +5,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-<<<<<<< HEAD
     url: jdbc:mysql://localhost:3306/it_resume_register?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: solmoonkang
     password: 1126
-=======
-    url: jdbc:mysql://localhost:3306/changDB?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: password
->>>>>>> master
-
 
   jpa:
     open-in-view: true

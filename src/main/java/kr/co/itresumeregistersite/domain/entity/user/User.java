@@ -1,12 +1,7 @@
 package kr.co.itresumeregistersite.domain.entity.user;
 
-<<<<<<< HEAD:src/main/java/kr/co/itresumeregistersite/domain/entity/user/User.java
 import kr.co.itresumeregistersite.domain.entity.user.dto.SignUpDto;
 import kr.co.itresumeregistersite.domain.entity.user.dto.UserInfoDto;
-=======
-import kr.co.itresumeregistersite.domain.dto.usersDto.SignUpDto;
-import kr.co.itresumeregistersite.domain.dto.usersDto.UsersInfoDto;
->>>>>>> master:src/main/java/kr/co/itresumeregistersite/domain/entity/Users.java
 import lombok.*;
 
 import javax.persistence.*;
@@ -60,13 +55,8 @@ public class User {
                 .build();
     }
 
-<<<<<<< HEAD:src/main/java/kr/co/itresumeregistersite/domain/entity/user/User.java
     public static UserInfoDto of(User users) {
         return UserInfoDto.builder()
-=======
-    public static UsersInfoDto of(Users users){
-        return UsersInfoDto.builder()
->>>>>>> master:src/main/java/kr/co/itresumeregistersite/domain/entity/Users.java
                 .name(users.getName())
                 .email(users.getEmail())
                 .birth(users.getBirth())

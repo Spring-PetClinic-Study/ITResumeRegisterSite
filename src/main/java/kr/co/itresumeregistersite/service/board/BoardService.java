@@ -4,7 +4,6 @@ import kr.co.itresumeregistersite.domain.entity.board.dto.EditPostDto;
 import kr.co.itresumeregistersite.domain.entity.board.dto.SavePostDto;
 import kr.co.itresumeregistersite.domain.entity.board.Board;
 import kr.co.itresumeregistersite.domain.exception.NoSuchDataException;
-import kr.co.itresumeregistersite.domain.exception.NoSuchDataExceptionType;
 import kr.co.itresumeregistersite.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
