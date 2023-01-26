@@ -27,7 +27,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // DB 연결
+<<<<<<< HEAD
     runtimeOnly 'mysql:mysql-connector-java'
+=======
+    implementation 'mysql:mysql-connector-java'
+
+    // Validation 연결
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+>>>>>>> master
 }
 
 tasks.named('test') {
