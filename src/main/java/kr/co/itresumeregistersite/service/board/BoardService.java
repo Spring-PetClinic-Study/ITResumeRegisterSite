@@ -3,7 +3,10 @@ package kr.co.itresumeregistersite.service.board;
 import kr.co.itresumeregistersite.domain.entity.board.dto.EditPostDto;
 import kr.co.itresumeregistersite.domain.entity.board.dto.SavePostDto;
 import kr.co.itresumeregistersite.domain.entity.board.Board;
-import kr.co.itresumeregistersite.domain.exception.NoSuchDataException;
+import kr.co.itresumeregistersite.global.error.exception.board.ContentNotExistException;
+import kr.co.itresumeregistersite.global.error.exception.board.PostNotFoundException;
+import kr.co.itresumeregistersite.global.error.exception.board.TitleNotExistException;
+import kr.co.itresumeregistersite.global.error.exception.board.WriterNotExistException;
 import kr.co.itresumeregistersite.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -57,7 +60,7 @@ public class BoardService {
     @Transactional
     public void editPost(EditPostDto editPostDto) {
         Board board = boardRepository.findById(editPostDto.getBoardId())
-                        .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_POST));
+                        .orElseThrow(() -> new PostNotFoundException());
 
         // 제목, 내용이 비어있을 경우 예외 발생
         NoInputTitle(editPostDto.getTitle());
@@ -76,21 +79,21 @@ public class BoardService {
     // 제목 작성 여부 검사
     public void NoInputTitle(String title) {
         if (title.isEmpty()) {
-            throw new NoSuchDataException(NoSuchDataExceptionType.TITLE_NOT_EXIST);
+            throw new TitleNotExistException();
         }
     }
 
     // 작성자 작성 여부 검사
     public void NoInputWriter(String writer) {
         if (writer.isEmpty()) {
-            throw new NoSuchDataException(NoSuchDataExceptionType.WRITER_NOT_EXIST);
+            throw new WriterNotExistException();
         }
     }
 
     // 내용 작성 여부 검사
     public void NoInputContent(String content) {
         if (content.isEmpty()) {
-            throw new NoSuchDataException(NoSuchDataExceptionType.CONTENT_NOT_EXIST);
+            throw new ContentNotExistException();
         }
     }
 }

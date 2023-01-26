@@ -10,7 +10,6 @@ public enum ErrorCode {
 
     // user
     USER_NOT_FOUND(400, HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다!"),
-    WRONG_IDENTITY(401, HttpStatus.BAD_REQUEST, "존재하지 않는 아이디입니다!"),
     WRONG_PASSWORD(402, HttpStatus.BAD_REQUEST, "존재하지 않는 비밀번호입니다!"),
     DUPLICATED_IDENTITY(403, HttpStatus.BAD_REQUEST, "중복된 아이디는 사용할 수 없습니다!"),
 
