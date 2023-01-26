@@ -1,4 +1,4 @@
-package kr.co.itresumeregistersite.domain.dto.usersDto;
+package kr.co.itresumeregistersite.domain.entity.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +24,5 @@ public class ReadDto {
     private String address;
 
     private String gender;
-
-    public ReadDto() {}
 }
 
