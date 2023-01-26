@@ -2,6 +2,7 @@ package kr.co.itresumeregistersite.domain.entity.resume;
 
 import kr.co.itresumeregistersite.domain.entity.user.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +19,7 @@ public class Resume {
     private Long resumeId;  // primary Key
 
     @ManyToOne
-    @JoinColumn(name = "User_Id", referencedColumnName = "ID")
+    @JoinColumn(name = "User_Id")
     private User userId;   // foreign Key
 
     @Column(name = "school_name", length = 30, nullable = false)
@@ -32,4 +33,17 @@ public class Resume {
 
     @Column(length = 125, nullable = false)
     private String profile; // 자기소개서
+
+    @Builder
+    public Resume(User userId,
+                  String schoolName,
+                  String major,
+                  String minor,
+                  String profile) {
+        this.userId = userId;
+        this.schoolName = schoolName;
+        this.major = major;
+        this.minor = minor;
+        this.profile = profile;
+    }
 }

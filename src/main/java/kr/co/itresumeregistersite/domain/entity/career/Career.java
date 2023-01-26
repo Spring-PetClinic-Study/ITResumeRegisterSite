@@ -19,7 +19,7 @@ public class Career {
     private Long careerId;  // primary Key
 
     @OneToOne
-    @JoinColumn(name = "Resume_Id", referencedColumnName = "ID")
+    @JoinColumn(name = "resume_Id")
     private Resume resumeId;    // foreign Key
 
     @Column(length = 20, nullable = false)
