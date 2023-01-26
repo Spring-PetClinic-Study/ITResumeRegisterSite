@@ -2,8 +2,9 @@ package kr.co.itresumeregistersite.service.user;
 
 import kr.co.itresumeregistersite.domain.entity.user.User;
 import kr.co.itresumeregistersite.domain.entity.user.dto.*;
-import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataException;
-import kr.co.itresumeregistersite.domain.exception.usersException.NoSuchDataExceptionType;
+import kr.co.itresumeregistersite.global.error.exception.user.DuplicatedCodeException;
+import kr.co.itresumeregistersite.global.error.exception.user.UserNotFoundException;
+import kr.co.itresumeregistersite.global.error.exception.user.WrongPasswordException;
 import kr.co.itresumeregistersite.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -34,7 +35,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserInfoDto userInfo(String identity) {
         User user = userRepository.findByIdentity(identity)
-                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new UserNotFoundException());
 
         return User.of(user);
     }
@@ -52,7 +53,7 @@ public class UserService {
     @Transactional
     public void updateUser(UpdateDto updateDto) {
         User users = userRepository.findByIdentity(updateDto.getIdentity())
-                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new UserNotFoundException());
 
         users.update(updateDto.getEmail(), updateDto.getPhone(), updateDto.getAddress());
     }
@@ -61,7 +62,7 @@ public class UserService {
     @Transactional
     public void updatePassword(UpdatePasswordDto updatePasswordDto) {
         User users = userRepository.findByIdentity(updatePasswordDto.getIdentity())
-                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new UserNotFoundException());
 
         // 회원 비밀번호 동일 여부 검사
         changePassword(updatePasswordDto.getPassword(), updatePasswordDto.getChangePassword());
@@ -73,7 +74,7 @@ public class UserService {
     @Transactional
     public void delete(DeleteDto deleteDto) {
         User users = userRepository.findByIdentity(deleteDto.getIdentity())
-                .orElseThrow(() -> new NoSuchDataException(NoSuchDataExceptionType.NOT_FOUND_USERS));
+                .orElseThrow(() -> new UserNotFoundException());
 
         // 회원 비밀번호 동일 여부 검사
         checkPassword((deleteDto.getPassword()), deleteDto.getCheckPassword());
@@ -82,21 +83,23 @@ public class UserService {
     }
 
 
+
     // 아이디 중복 검사
     private void checkIdentity(String identity){
         if (userRepository.findByIdentity(identity).isPresent())
-            throw new NoSuchDataException(NoSuchDataExceptionType.ALREADY_EXIST_USERSIDENTITY);
+            throw new DuplicatedCodeException();
     }
 
     // 비밀번호 확인 여부 검사
     private void checkPassword(String password, String checkPassword){
         if (!password.equals(checkPassword))
-            throw new NoSuchDataException(NoSuchDataExceptionType.WRONG_PASSWORD);
+            throw new WrongPasswordException();
+
     }
 
     // 비밀번호 일치 여부 검사
     public void changePassword(String password, String changePassword) {
         if (password.equals(changePassword))
-            throw new NoSuchDataException(NoSuchDataExceptionType.WRONG_PASSWORD);
+            throw new WrongPasswordException();
     }
 }
