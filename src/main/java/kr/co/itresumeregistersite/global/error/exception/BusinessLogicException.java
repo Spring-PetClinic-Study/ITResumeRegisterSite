@@ -1,6 +1,6 @@
 package kr.co.itresumeregistersite.global.error.exception;
 
-import kr.co.itresumeregistersite.global.error.errorCode.ErrorCode;
+import kr.co.itresumeregistersite.global.error.enums.ErrorCode;
 
 public class BusinessLogicException extends RuntimeException {
 
