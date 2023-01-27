@@ -72,11 +72,15 @@ public class User {
     }
 
     // 회원정보 수정
-    public void update(String email,
+    public void update(String identity,
+                       String email,
                        String phone,
-                       String address) {
+                       String address,
+                       String gender) {
+        this.identity = identity;
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.gender = gender;
     }
 }
