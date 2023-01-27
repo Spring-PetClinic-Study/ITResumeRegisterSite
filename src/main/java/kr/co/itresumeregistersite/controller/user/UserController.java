@@ -1,6 +1,5 @@
 package kr.co.itresumeregistersite.controller.user;
 
-import kr.co.itresumeregistersite.domain.entity.user.User;
 import kr.co.itresumeregistersite.domain.entity.user.dto.*;
 import kr.co.itresumeregistersite.service.user.UserService;
 import lombok.RequiredArgsConstructor;

@@ -18,10 +18,11 @@ public class SignUpDto {    // 회원가입 Dto
     private String identity;
 
     @NotBlank(message = "비밀번호를 입력해주세요")
-    @Size(min = 5, max = 15, message = "PW는 5~15자로 입력해주세요")
+    @Size(min = 4, max = 15, message = "PW는 4~15자로 입력해주세요")
     private String password;
 
     @NotBlank(message = "입력한 비밀번호를 다시 입력해주세요")
+    @Size(min = 4, max = 15, message = "비밀번호가 일치하지 않습니다")
     private String checkPassword;
 
     @NotBlank(message = "이름을 입력해주세요")

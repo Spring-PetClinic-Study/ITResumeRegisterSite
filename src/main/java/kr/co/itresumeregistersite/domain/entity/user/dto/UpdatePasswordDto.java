@@ -14,6 +14,6 @@ public class UpdatePasswordDto { // 회원 비밀번호 수정 Dto
     private String password;
 
     @NotBlank(message = "변경할 비밀번호를 입력해주세요")
-    @Size(min = 5, max = 15, message = "PW는 5~15자로 입력해주세요")
+    @Size(min = 4, max = 15, message = "PW는 4~15자로 입력해주세요")
     private String changePassword;
 }

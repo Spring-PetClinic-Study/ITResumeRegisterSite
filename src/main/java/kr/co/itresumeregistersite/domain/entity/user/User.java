@@ -74,13 +74,15 @@ public class User {
 
     // 회원정보 수정
     public void update(String identity,
-                       String email,
                        String phone,
+                       String email,
+                       String birth,
                        String address,
                        String gender) {
         this.identity = identity;
-        this.email = email;
         this.phone = phone;
+        this.email = email;
+        this.birth = birth;
         this.address = address;
         this.gender = gender;
     }
