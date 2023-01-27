@@ -5,6 +5,7 @@ import kr.co.itresumeregistersite.domain.entity.user.dto.UserInfoDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -55,12 +56,12 @@ public class User {
                 .build();
     }
 
-    public static UserInfoDto of(User users) {
+    public static UserInfoDto of(User user) {
         return UserInfoDto.builder()
-                .name(users.getName())
-                .email(users.getEmail())
-                .birth(users.getBirth())
-                .gender(users.getGender())
+                .name(user.getName())
+                .email(user.getEmail())
+                .birth(user.getBirth())
+                .gender(user.getGender())
                 .build();
     }
 

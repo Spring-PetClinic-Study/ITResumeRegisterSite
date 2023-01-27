@@ -118,13 +118,13 @@ public class UserService {
 
     private void nullIdentity(String identity) {
         if(identity.isEmpty()) {
-            throw new NullIdentityException();
+            throw new IdentityValueNullException();
         }
     }
 
     private void nullPassword(String password) {
         if(password.isEmpty()) {
-            throw new NullPasswordException();
+            throw new PasswordValueNullException();
         }
     }
 }
