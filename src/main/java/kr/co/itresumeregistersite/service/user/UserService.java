@@ -3,6 +3,7 @@ package kr.co.itresumeregistersite.service.user;
 import kr.co.itresumeregistersite.domain.entity.user.User;
 import kr.co.itresumeregistersite.domain.entity.user.dto.*;
 import kr.co.itresumeregistersite.global.error.exception.user.*;
+import kr.co.itresumeregistersite.global.error.response.ResponseFormat;
 import kr.co.itresumeregistersite.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class UserService {
 
         final User user = User.of(signUpDto);
         userRepository.save(user);
+        ResponseFormat.ok("signUp successfully completed");
     }
 
     // 로그인
@@ -35,6 +37,7 @@ public class UserService {
         nullPassword(signInDto.getPassword());
 
         userRepository.findByIdentityAndPassword(signInDto.getIdentity(), signInDto.getPassword());
+        ResponseFormat.ok("signIn successfully completed");
     }
 
     // 회원정보 조회
@@ -48,8 +51,8 @@ public class UserService {
 
     // 전체 회원정보 조회
     @Transactional(readOnly = true)
-    public List<User> findAllUserInfo() {
-        return userRepository.findAll();
+    public List<UserInfoDto> findAllUserInfo() {
+        return userRepository.findUserListBy();
     }
 
     // 회원정보 수정
@@ -63,6 +66,7 @@ public class UserService {
                 updateDto.getPhone(),
                 updateDto.getAddress(),
                 updateDto.getGender());
+        ResponseFormat.ok("updateUser successfully completed");
     }
 
     // 회원 비밀번호 수정
@@ -75,6 +79,7 @@ public class UserService {
         changePassword(updatePasswordDto.getPassword(), updatePasswordDto.getChangePassword());
 
         users.updatePassword(updatePasswordDto.getPassword());
+        ResponseFormat.ok("updatePassword successfully completed");
     }
 
     // 회원탈퇴
@@ -87,6 +92,7 @@ public class UserService {
         checkPassword((deleteDto.getPassword()), deleteDto.getCheckPassword());
 
         userRepository.delete(users);
+        ResponseFormat.ok("deleteUser successfully completed");
     }
 
 

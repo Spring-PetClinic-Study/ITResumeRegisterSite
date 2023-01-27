@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     // 회원가입
-    // uri : localhost:8080/users
+    // uri : http://localhost:8080/users
     @PostMapping
     public void signUp(@RequestBody @Valid SignUpDto signUpDto) {
         userService.signUp(signUpDto);
@@ -36,7 +36,7 @@ public class UserController {
 
     // 전체 회원정보 조회
     @GetMapping("/findAll")
-    public List<User> findAllUserInfo() {
+    public List<UserInfoDto> findAllUserInfo() {
         return userService.findAllUserInfo();
     }
 
@@ -47,7 +47,6 @@ public class UserController {
     }
 
     // 회원 비밀번호 수정
-    // url : localhost:8080/users/password
     @PutMapping("/password")
     public void updatePassword(@RequestBody @Valid UpdatePasswordDto updatePasswordDto) {
         userService.updatePassword(updatePasswordDto);
