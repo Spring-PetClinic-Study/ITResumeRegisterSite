@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class BoardController {
 
     // 게시글 등록
     @PostMapping
-    public void postSave(@RequestBody SavePostDto savePostDto) {
+    public void postSave(@RequestBody @Valid SavePostDto savePostDto) {
         boardService.postSave(savePostDto);
     }
 
@@ -41,13 +42,13 @@ public class BoardController {
 
     // 게시글 수정
     @PutMapping
-    public void editPost(@RequestBody EditPostDto editPostDto) {
+    public void editPost(@RequestBody @Valid EditPostDto editPostDto) {
         boardService.editPost(editPostDto);
     }
 
     // 게시글 삭제
     @DeleteMapping
-    public void deletePost(@RequestBody Long boardId) {
+    public void deletePost(@RequestBody @Valid Long boardId) {
         boardService.deletePost(boardId);
     }
 
