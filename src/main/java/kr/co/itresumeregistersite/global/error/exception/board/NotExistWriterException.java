@@ -3,9 +3,9 @@ package kr.co.itresumeregistersite.global.error.exception.board;
 import kr.co.itresumeregistersite.global.error.enums.ErrorCode;
 import kr.co.itresumeregistersite.global.error.exception.BusinessLogicException;
 
-public class TitleNotExistException extends BusinessLogicException {
+public class NotExistWriterException extends BusinessLogicException {
 
-    public TitleNotExistException() {
-        super(ErrorCode.TITLE_NOT_EXIST);
+    public NotExistWriterException() {
+        super(ErrorCode.WRITER_NOT_EXIST);
     }
 }

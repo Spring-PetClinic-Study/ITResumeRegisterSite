@@ -22,8 +22,8 @@ public class ResponseFormat<T> {   // 공통 응답 모델
         return ResponseFormat.builder()
                 .result(true)
                 .data(null)
-                .message(ErrorCode.SUCCESS.getErrorMessage())
-                .status(ErrorCode.SUCCESS.getErrorCode())
+                .message(ErrorCode.SUCCESS.getMessage())
+                .status(ErrorCode.SUCCESS.getStatus())
                 .build();
     }
 
@@ -31,8 +31,8 @@ public class ResponseFormat<T> {   // 공통 응답 모델
         return ResponseFormat.builder()
                 .result(false)
                 .data(null)
-                .message(ErrorCode.FAIL.getErrorMessage())
-                .status(ErrorCode.FAIL.getErrorCode())
+                .message(ErrorCode.FAIL.getMessage())
+                .status(ErrorCode.FAIL.getStatus())
                 .build();
     }
 
@@ -40,8 +40,8 @@ public class ResponseFormat<T> {   // 공통 응답 모델
         return ResponseFormat.builder()
                 .result(true)
                 .data(data)
-                .message(ErrorCode.SUCCESS.getErrorMessage())
-                .status(ErrorCode.SUCCESS.getErrorCode())
+                .message(ErrorCode.SUCCESS.getMessage())
+                .status(ErrorCode.SUCCESS.getStatus())
                 .build();
     }
 }

@@ -8,7 +8,7 @@ public class BusinessLogicException extends RuntimeException {  // 여러가지 
     private final ErrorCode errorCode;
 
     public BusinessLogicException(ErrorCode errorCode) {
-        super(errorCode.getErrorMessage());
+        super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
 
