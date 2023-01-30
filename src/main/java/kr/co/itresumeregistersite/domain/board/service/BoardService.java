@@ -1,6 +1,7 @@
 package kr.co.itresumeregistersite.domain.board.service;
 
 import kr.co.itresumeregistersite.domain.board.dto.EditPostDto;
+import kr.co.itresumeregistersite.domain.board.dto.PostInfoDto;
 import kr.co.itresumeregistersite.domain.board.dto.SavePostDto;
 import kr.co.itresumeregistersite.domain.board.entity.Board;
 import kr.co.itresumeregistersite.global.error.exception.board.NotExistContentException;
@@ -8,7 +9,6 @@ import kr.co.itresumeregistersite.global.error.exception.board.NotExistTitleExce
 import kr.co.itresumeregistersite.global.error.exception.board.NotExistWriterException;
 import kr.co.itresumeregistersite.domain.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +19,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
+    // TODO findAllPostInfo API fix
+
     private final BoardRepository boardRepository;
 
     // 게시글 작성
     @Transactional
-    public void postSave(SavePostDto savePostDto) {
+    public void savePost(SavePostDto savePostDto) {
 
         // 제목, 작성자, 내용 미입력 시 예외 발생
         noInputTitle(savePostDto.getTitle());
@@ -31,14 +33,15 @@ public class BoardService {
         noInputContent(savePostDto.getContent());
 
         final Board board = Board.of(savePostDto);
+
         boardRepository.save(board);
     }
 
     // 게시글 전체 목록 조회
-    // TODO : test error
+    // test error
     @Transactional(readOnly = true)
-    public Page<Board> findAllPostInfo(Pageable pageable) {
-        return boardRepository.findAll(pageable);
+    public List<PostInfoDto> findAllPostInfo() {
+        return boardRepository.findPostListBy();
     }
 
     // 특정 게시글 조회
@@ -50,6 +53,7 @@ public class BoardService {
     }
 
     // 게시글 수정
+    // 게시글 수정 시 비밀번호를 입력받은 후 일치할 경우 수정할 수 있도록
     @Transactional
     public void editPost(EditPostDto editPostDto) {
         Board board = boardRepository.findByBoardId(editPostDto.getBoardId());
@@ -64,10 +68,12 @@ public class BoardService {
     }
 
     // 게시글 삭제
+    // 게시글 삭제 시 비밀번호를 입력받은 후 일치할 경우 삭제할 수 있도록
     @Transactional
     public void deletePost(Long boardId) {
         boardRepository.deleteById(boardId);
     }
+
 
 
     // 제목 작성 여부 검사

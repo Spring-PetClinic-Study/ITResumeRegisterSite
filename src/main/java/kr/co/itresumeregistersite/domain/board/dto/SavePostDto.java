@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class SavePostDto {
 
+    private Long boardId;
+
     @NotBlank(message = "제목을 작성해주세요")
     private String title;
 

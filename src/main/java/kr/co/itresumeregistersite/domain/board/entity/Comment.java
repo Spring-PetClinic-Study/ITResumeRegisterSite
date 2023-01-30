@@ -27,11 +27,11 @@ public class Comment {
     @Column(name ="modifie_date")
     private LocalDateTime modifiedDate; // 수정일
 
-    @ManyToOne
-    @JoinColumn(name = "board_id")
-    private Board boardId;  // foreign key
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User userId;    // 작성자
+//    @ManyToOne
+//    @JoinColumn(name = "board_id")
+//    private Board boardId;  // foreign key
+//
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User userId;    // 작성자
 }

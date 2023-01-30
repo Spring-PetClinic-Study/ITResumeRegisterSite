@@ -6,6 +6,6 @@ import kr.co.itresumeregistersite.global.error.exception.BusinessLogicException;
 public class NotExistPasswordException extends BusinessLogicException {
 
     public NotExistPasswordException() {
-        super(ErrorCode.WRONG_PASSWORD);
+        super(ErrorCode.PASSWORD_INPUT_INVALID);
     }
 }

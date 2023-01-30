@@ -6,6 +6,6 @@ import kr.co.itresumeregistersite.global.error.exception.BusinessLogicException;
 public class NotExistTitleException extends BusinessLogicException {
 
     public NotExistTitleException() {
-        super(ErrorCode.TITLE_NOT_EXIST);
+        super(ErrorCode.TITLE_INPUT_INVALID);
     }
 }

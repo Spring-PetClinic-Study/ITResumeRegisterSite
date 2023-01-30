@@ -6,6 +6,6 @@ import kr.co.itresumeregistersite.global.error.exception.BusinessLogicException;
 public class NotExistIdentityException extends BusinessLogicException {
 
     public NotExistIdentityException() {
-        super(ErrorCode.WORNG_IDENTITY);
+        super(ErrorCode.IDENTITY_INPUT_WRONG);
     }
 }

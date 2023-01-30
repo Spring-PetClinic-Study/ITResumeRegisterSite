@@ -9,7 +9,7 @@ public class InvalidParameterException extends BusinessLogicException {
     private final Errors errors;
 
     public InvalidParameterException(Errors errors) {
-        super(ErrorCode.INVALID_PARAMETER);
+        super(ErrorCode.PARAMETER_INPUT_INVALID);
         this.errors = errors;
     }
 

@@ -6,6 +6,6 @@ import kr.co.itresumeregistersite.global.error.exception.BusinessLogicException;
 public class NotExistContentException extends BusinessLogicException {
 
     public NotExistContentException() {
-        super(ErrorCode.CONTENT_NOT_EXIST);
+        super(ErrorCode.CONTENT_INPUT_INVALID);
     }
 }
