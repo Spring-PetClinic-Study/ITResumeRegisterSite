@@ -19,8 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
-    // TODO findAllPostInfo API fix
-
     private final BoardRepository boardRepository;
 
     // 게시글 작성

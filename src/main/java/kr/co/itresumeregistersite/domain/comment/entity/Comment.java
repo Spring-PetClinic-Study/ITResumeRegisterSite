@@ -1,5 +1,6 @@
-package kr.co.itresumeregistersite.domain.board.entity;
+package kr.co.itresumeregistersite.domain.comment.entity;
 
+import kr.co.itresumeregistersite.domain.board.entity.Board;
 import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,19 +20,14 @@ public class Comment {
     @Column(name = "comment_id")
     private Long commentId; // primary key
 
+    private String writer;  // 작성자
+
     private String comment; // 댓글
 
-    @Column(name = "create_date")
-    private LocalDateTime createdDate;  // 생성일
+    @Column(name = "registed_date")
+    private LocalDateTime registedDate;  // 댓글 작성 날짜
 
-    @Column(name ="modifie_date")
-    private LocalDateTime modifiedDate; // 수정일
-
-//    @ManyToOne
-//    @JoinColumn(name = "board_id")
-//    private Board boardId;  // foreign key
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User userId;    // 작성자
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board boardId;  // foreign key
 }

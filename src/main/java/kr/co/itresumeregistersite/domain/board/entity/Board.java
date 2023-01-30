@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "tbl_board")
 public class Board {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long boardId;   // primary key
 
