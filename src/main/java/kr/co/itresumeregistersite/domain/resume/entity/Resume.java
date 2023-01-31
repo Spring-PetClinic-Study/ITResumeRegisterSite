@@ -1,9 +1,11 @@
 package kr.co.itresumeregistersite.domain.resume.entity;
 
+import kr.co.itresumeregistersite.domain.resume.dto.RegisterResumeDto;
 import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -29,7 +31,24 @@ public class Resume {
     @Column(length = 125, nullable = false)
     private String profile; // 자기소개서
 
+    @Column(name = "register_date")
+    private LocalDateTime registerDate;
+
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;   // foreign Key
+
+
+    public static Resume of(RegisterResumeDto registerResumeDto) {
+        return Resume.builder()
+                .schoolName(registerResumeDto.getSchoolName())
+                .major(registerResumeDto.getMajor())
+                .minor(registerResumeDto.getMinor())
+                .profile(registerResumeDto.getProfile())
+                .registerDate(LocalDateTime.now())
+                .build();
+    }
 }
