@@ -103,11 +103,4 @@ public class BoardService {
             throw new NotFoundPostException();
         }
     }
-
-    private void noSuchPostList(Long boardId) {
-        Optional<Board> board = boardRepository.findByBoardId(boardId);
-        if (board.isPresent()) {
-            throw new NotFoundPostException();
-        }
-    }
 }
