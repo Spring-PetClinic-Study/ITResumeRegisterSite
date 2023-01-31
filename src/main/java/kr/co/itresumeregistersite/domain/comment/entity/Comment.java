@@ -1,17 +1,16 @@
 package kr.co.itresumeregistersite.domain.comment.entity;
 
 import kr.co.itresumeregistersite.domain.board.entity.Board;
+import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
 import kr.co.itresumeregistersite.domain.user.entity.User;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @Getter
 @Entity
 @Table(name = "tbl_comment")
@@ -25,8 +24,8 @@ public class Comment {
 
     private String comment; // 댓글
 
-    @Column(name = "registed_date")
-    private LocalDateTime registedDate;  // 댓글 작성 날짜
+    @Column(name = "register_date")
+    private LocalDateTime registerDate;  // 댓글 작성 날짜
 
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate; // 댓글 수정 날짜
@@ -38,4 +37,15 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
+
+    public static Comment of(RegisterCommentDto registerCommentDto) {
+        return Comment.builder()
+                .writer(registerCommentDto.getWirter())
+                .comment(registerCommentDto.getComment())
+                .build();
+    }
+
+
 }
