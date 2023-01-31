@@ -1,6 +1,10 @@
 package kr.co.itresumeregistersite.global.error.exception;
 
 import kr.co.itresumeregistersite.global.error.enums.ErrorCode;
+import kr.co.itresumeregistersite.global.error.exception.board.NotExistContentException;
+import kr.co.itresumeregistersite.global.error.exception.board.NotExistTitleException;
+import kr.co.itresumeregistersite.global.error.exception.board.NotExistWriterException;
+import kr.co.itresumeregistersite.global.error.exception.board.NotFoundPostException;
 import kr.co.itresumeregistersite.global.error.exception.user.*;
 import kr.co.itresumeregistersite.global.error.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +25,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionAdvice {
 
-    // NotFoundUserException을 지정해서 잡아낸다 (즉, 특정 Exception을 지정해서 잡아낸다)
+    // Common
+    @ExceptionHandler(InvalidParameterException.class)
+    public ResponseEntity<ErrorResponse> invalidParameterException(InvalidParameterException e) {
+        log.error("InvalidParameterException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.PARAMETER_INPUT_INVALID);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
+    // User
     @ExceptionHandler(NotFoundUserException.class)
     public ResponseEntity<ErrorResponse> notFoundUserException(NotFoundUserException e) {
         log.error("NotFoundUserException Occurred", e);
@@ -50,10 +63,35 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler(InvalidParameterException.class)
-    public ResponseEntity<ErrorResponse> invalidParameterException(InvalidParameterException e) {
-        log.error("InvalidParameterException Occurred", e);
-        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.PARAMETER_INPUT_INVALID);
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
+    // Post
+    @ExceptionHandler(NotExistTitleException.class)
+    public ResponseEntity<ErrorResponse> notExistTitleException(NotExistTitleException e) {
+        log.error("NotExistTitleException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.TITLE_INPUT_INVALID);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
     }
+
+    @ExceptionHandler(NotExistWriterException.class)
+    public ResponseEntity<ErrorResponse> notExistWriterException(NotExistWriterException e) {
+        log.error("NotExistWriterException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.WRITER_INPUT_INVALID);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+    }
+
+    @ExceptionHandler(NotExistContentException.class)
+    public ResponseEntity<ErrorResponse> notExistContentException(NotExistContentException e) {
+        log.error("NotExistIdentityException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.CONTENT_INPUT_INVALID);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+    }
+
+    @ExceptionHandler(NotFoundPostException.class)
+    public ResponseEntity<ErrorResponse> notFoundPostException(NotFoundPostException e) {
+        log.error("NotExistIdentityException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NOT_FOUND_POST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+
 }

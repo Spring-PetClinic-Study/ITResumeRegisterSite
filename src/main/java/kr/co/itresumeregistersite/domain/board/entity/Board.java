@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.domain.board.entity;
 
+import kr.co.itresumeregistersite.domain.board.dto.EditPostDto;
 import kr.co.itresumeregistersite.domain.board.dto.SavePostDto;
 import lombok.*;
 
@@ -50,6 +51,7 @@ public class Board {
                      String content) {
         this.title = title;
         this.content = content;
+        this.modifiedDate = LocalDateTime.now();
     }
 }
 

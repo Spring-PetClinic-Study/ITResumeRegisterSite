@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,14 +30,14 @@ public class BoardController {
 
     // 게시글 전체 목록 조회
     @GetMapping("/findAll")
-    public List<PostInfoDto> findAllPostInfo() {
-        return boardService.findAllPostInfo();
+    public ResponseFormat<List<PostInfoDto>> findAllPostInfo() {
+        return ResponseFormat.ok(boardService.findAllPostInfo());
     }
 
     // 특정 게시글 조회
     @GetMapping
-    public List<Board> search(@RequestParam("title") String title, Pageable pageable) {
-        return boardService.search(title, pageable);
+    public ResponseFormat<List<Board>> search(@RequestParam("title") String title) {
+        return ResponseFormat.ok(boardService.search(title));
     }
 
     // 게시글 수정
