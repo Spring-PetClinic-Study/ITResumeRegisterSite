@@ -1,8 +1,8 @@
 package kr.co.itresumeregistersite.domain.comment.entity;
 
 import kr.co.itresumeregistersite.domain.board.entity.Board;
-import kr.co.itresumeregistersite.domain.comment.dto.CommentDto;
-import kr.co.itresumeregistersite.domain.user.entity.User;
+import kr.co.itresumeregistersite.domain.comment.dto.EditCommentDto;
+import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,16 +34,12 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;  // foreign key
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
-
-
-    public static Comment of(CommentDto registerCommentDto) {
+    public static Comment of(RegisterCommentDto registerCommentDto) {
         return Comment.builder()
                 .writer(registerCommentDto.getWriter())
                 .comment(registerCommentDto.getComment())
+                .registerDate(LocalDateTime.now())
                 .build();
     }
 

@@ -1,9 +1,9 @@
 package kr.co.itresumeregistersite.domain.comment.service;
 
-import kr.co.itresumeregistersite.domain.comment.dto.CommentDto;
+import kr.co.itresumeregistersite.domain.comment.dto.EditCommentDto;
+import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
 import kr.co.itresumeregistersite.domain.comment.entity.Comment;
 import kr.co.itresumeregistersite.domain.comment.repository.CommentRepository;
-import kr.co.itresumeregistersite.domain.user.repository.UserRepository;
 import kr.co.itresumeregistersite.global.error.exception.board.NotExistWriterException;
 import kr.co.itresumeregistersite.global.error.exception.comment.InvalidCommentException;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +16,14 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
 
     // 댓글 등록
-    public void registerComment(CommentDto commentDto) {
+    public void registerComment(RegisterCommentDto registerCommentDto) {
         // 댓글 작성자와 내용이 없을 경우 예외처리
-        writerHasNotBeenEntered(commentDto.getWriter());
-        noCommentHaveBeenWritten(commentDto.getComment());
+        writerHasNotBeenEntered(registerCommentDto.getWriter());
+        noCommentHaveBeenWritten(registerCommentDto.getComment());
 
-        Comment comment = Comment.of(commentDto);
+        Comment comment = Comment.of(registerCommentDto);
         commentRepository.save(comment);
     }
 
@@ -34,16 +33,16 @@ public class CommentService {
     }
 
     // 댓글 수정
-    public void editComment(CommentDto commentDto) {
+    public void editComment(EditCommentDto editCommentDto) {
         // 작성된 댓글들이 없을 경우 예외처리
-        noCommentHaveBeenWritten(commentDto.getCommentId());
-        Comment comment = commentRepository.findByCommentId(commentDto.getCommentId());
+        noCommentHaveBeenWritten(editCommentDto.getCommentId());
+        Comment comment = commentRepository.findByCommentId(editCommentDto.getCommentId());
 
         // 댓글의 작성자, 댓글내용이 없을 경우 예외처리
         writerHasNotBeenEntered(comment.getWriter());
         noCommentHaveBeenWritten(comment.getComment());
 
-        comment.edit(commentDto.getWriter(), commentDto.getComment());
+        comment.edit(editCommentDto.getWriter(), editCommentDto.getComment());
         commentRepository.save(comment);
     }
 
@@ -51,7 +50,7 @@ public class CommentService {
     public void deleteComment(Long commentId) {
         // 작성한 댓글이 없을 경우 예외처리
         noCommentHaveBeenWritten(commentId);
-        commentRepository.deleteByCommentId(commentId);
+        commentRepository.deleteById(commentId);
     }
 
 
