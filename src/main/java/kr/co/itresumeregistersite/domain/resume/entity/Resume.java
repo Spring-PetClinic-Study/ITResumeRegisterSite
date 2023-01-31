@@ -22,10 +22,13 @@ public class Resume {
     @Column(name = "school_name", length = 30, nullable = false)
     private String schoolName;  // 학교명
 
-    @Column(length = 30, nullable = false)
+    @Column(name = "company_name", length = 30, nullable = false)
+    private String companyName; // 지원 회사명
+
+    @Column(length = 30)
     private String major;   // 전공
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30)
     private String minor;   // 부전공
 
     @Column(length = 125, nullable = false)
@@ -45,6 +48,7 @@ public class Resume {
     public static Resume of(RegisterResumeDto registerResumeDto) {
         return Resume.builder()
                 .schoolName(registerResumeDto.getSchoolName())
+                .companyName(registerResumeDto.getCompanyName())
                 .major(registerResumeDto.getMajor())
                 .minor(registerResumeDto.getMinor())
                 .profile(registerResumeDto.getProfile())
