@@ -32,7 +32,13 @@ public class CommentController {
         return commentService.findAllComment();
     }
 
-    // TODO : 댓글 수정
+    // 댓글 수정
+    @PostMapping()
+    public ResponseFormat editComment(CommentDto commentDto) {
+        commentService.editComment(commentDto);
+        return ResponseFormat.ok();
+    }
+
 
     // TODO : 댓글 삭제
 }

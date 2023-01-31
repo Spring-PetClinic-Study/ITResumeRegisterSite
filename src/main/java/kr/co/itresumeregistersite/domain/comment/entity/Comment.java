@@ -42,9 +42,17 @@ public class Comment {
 
     public static Comment of(CommentDto registerCommentDto) {
         return Comment.builder()
-                .writer(registerCommentDto.getWirter())
+                .writer(registerCommentDto.getWriter())
                 .comment(registerCommentDto.getComment())
                 .build();
+    }
+
+
+
+    public void edit(String writer,
+                     String comment) {
+        this.writer = writer;
+        this.comment = comment;
     }
 
 
