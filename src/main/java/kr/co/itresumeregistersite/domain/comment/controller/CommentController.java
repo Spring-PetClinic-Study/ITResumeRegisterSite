@@ -25,8 +25,8 @@ public class CommentController {
 
     // 댓글 조회
     @GetMapping()
-    public List<Comment> findAllComment(Long commentId) {
-        return commentService.findAllComment(commentId);
+    public List<Comment> findAllComment() {
+        return commentService.findAllComment();
     }
 
     // 댓글 수정

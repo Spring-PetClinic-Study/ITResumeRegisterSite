@@ -29,9 +29,7 @@ public class CommentService {
     }
 
     // 댓글 조회
-    public List<Comment> findAllComment(Long commentId) {
-        // 작성된 댓글이 없을 경우 예외처리
-        noCommentHaveBeenWritten(commentRepository.findByCommentId(commentId).getCommentId());
+    public List<Comment> findAllComment() {
         return commentRepository.findAll();
     }
 
