@@ -20,7 +20,7 @@ public class Career {
 
     @OneToOne
     @JoinColumn(name = "resume_id")
-    private Resume resumeId;    // foreign Key
+    private Resume resume;    // foreign Key
 
     @Column(length = 20, nullable = false)
     private String companyName; // 회사명

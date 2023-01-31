@@ -1,7 +1,9 @@
 package kr.co.itresumeregistersite.domain.board.entity;
 
 import kr.co.itresumeregistersite.domain.board.dto.SavePostDto;
+import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,8 +35,9 @@ public class Board {
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate; // 수정일
 
-//    @OneToMany(cascade = CascadeType.REMOVE)    // 게시글이 삭제될 경우 댓글도 같이 삭제하기 위함(cascade)
-//    private List<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public static Board of(SavePostDto savePostDto) {
         return Board.builder()

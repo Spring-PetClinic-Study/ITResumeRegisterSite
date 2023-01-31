@@ -42,6 +42,7 @@ public class User {
     @Column(length = 10, nullable = false)
     private String gender;  // 성별
 
+
     public static User of(SignUpDto signUpDto){
         return User.builder()
                 .identity(signUpDto.getIdentity())
