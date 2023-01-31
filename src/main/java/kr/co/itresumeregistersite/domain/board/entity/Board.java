@@ -1,6 +1,5 @@
 package kr.co.itresumeregistersite.domain.board.entity;
 
-import kr.co.itresumeregistersite.domain.board.dto.EditPostDto;
 import kr.co.itresumeregistersite.domain.board.dto.SavePostDto;
 import lombok.*;
 

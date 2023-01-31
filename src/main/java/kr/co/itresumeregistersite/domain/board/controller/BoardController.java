@@ -7,11 +7,9 @@ import kr.co.itresumeregistersite.domain.board.entity.Board;
 import kr.co.itresumeregistersite.domain.board.service.BoardService;
 import kr.co.itresumeregistersite.global.error.response.ResponseFormat;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
