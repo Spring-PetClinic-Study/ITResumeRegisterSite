@@ -18,7 +18,7 @@ public class CommentController {
 
     // 댓글 등록
     @PostMapping()
-    public ResponseFormat registerComment(CommentDto registerCommentDto) {
+    public ResponseFormat registerComment(@RequestBody CommentDto registerCommentDto) {
         commentService.registerComment(registerCommentDto);
         return ResponseFormat.ok();
     }
@@ -31,7 +31,7 @@ public class CommentController {
 
     // 댓글 수정
     @PostMapping()
-    public ResponseFormat editComment(CommentDto commentDto) {
+    public ResponseFormat editComment(@RequestBody CommentDto commentDto) {
         commentService.editComment(commentDto);
         return ResponseFormat.ok();
     }
@@ -39,7 +39,7 @@ public class CommentController {
 
     // 댓글 삭제
     @DeleteMapping()
-    public ResponseFormat deleteComment(Long commentId) {
+    public ResponseFormat deleteComment(@RequestParam Long commentId) {
         commentService.deleteComment(commentId);
         return ResponseFormat.ok();
     }
