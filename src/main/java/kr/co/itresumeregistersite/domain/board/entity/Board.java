@@ -3,7 +3,6 @@ package kr.co.itresumeregistersite.domain.board.entity;
 import kr.co.itresumeregistersite.domain.board.dto.SavePostDto;
 import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,11 +22,11 @@ public class Board {
     @Column(length = 125, nullable = false)
     private String title;   // 제목
 
-    @Column(length = 125, nullable = false)
-    private String content; // 내용
-
     @Column(length = 20, nullable = false)
     private String writer;  // 작성자
+
+    @Column(length = 125, nullable = false)
+    private String content; // 내용
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;  // 생성일
@@ -42,8 +41,8 @@ public class Board {
     public static Board of(SavePostDto savePostDto) {
         return Board.builder()
                 .title(savePostDto.getTitle())
-                .content(savePostDto.getContent())
                 .writer(savePostDto.getWriter())
+                .content(savePostDto.getContent())
                 .createdDate(LocalDateTime.now())
                 .build();
     }

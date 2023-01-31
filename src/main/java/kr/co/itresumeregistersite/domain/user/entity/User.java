@@ -1,10 +1,16 @@
 package kr.co.itresumeregistersite.domain.user.entity;
 
+import kr.co.itresumeregistersite.domain.board.entity.Board;
+import kr.co.itresumeregistersite.domain.comment.entity.Comment;
+import kr.co.itresumeregistersite.domain.resume.entity.Resume;
 import kr.co.itresumeregistersite.domain.user.dto.SignUpDto;
 import kr.co.itresumeregistersite.domain.user.dto.UserInfoDto;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,6 +47,15 @@ public class User {
 
     @Column(length = 10, nullable = false)
     private String gender;  // 성별
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    private List<Board> boardList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    private List<Resume> resumeList = new ArrayList<>();
 
 
     public static User of(SignUpDto signUpDto){
