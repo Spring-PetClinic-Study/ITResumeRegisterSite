@@ -1,6 +1,7 @@
 package kr.co.itresumeregistersite.global.error.exception;
 
 import kr.co.itresumeregistersite.global.error.enums.ErrorCode;
+import kr.co.itresumeregistersite.global.error.exception.comment.InvalidCommentException;
 import kr.co.itresumeregistersite.global.error.exception.user.*;
 import kr.co.itresumeregistersite.global.error.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -55,5 +56,12 @@ public class ExceptionAdvice {
         log.error("InvalidParameterException Occurred", e);
         final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.PARAMETER_INPUT_INVALID);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidCommentException.class)
+    public ResponseEntity<ErrorResponse> invalidCommentException(InvalidCommentException e) {
+        log.error("InvalidCommentException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.COMMENT_INPUT_INVALID);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
     }
 }
