@@ -47,7 +47,8 @@ public class Board {
 
 
     public void edit(String title,
-                     String content) {
+                     String content,
+                     LocalDateTime modifiedDate) {
         this.title = title;
         this.content = content;
         this.modifiedDate = LocalDateTime.now();

@@ -60,7 +60,7 @@ public class BoardService {
         noCorrespondingPostTitle(editPostDto.getTitle());
         noCorrespondingPostContent(editPostDto.getContent());
 
-        board.edit(editPostDto.getTitle(), editPostDto.getContent());
+        board.edit(editPostDto.getTitle(), editPostDto.getContent(), editPostDto.getModifiedDate());
     }
 
     // 게시글 삭제
