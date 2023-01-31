@@ -5,10 +5,7 @@ import kr.co.itresumeregistersite.domain.comment.entity.Comment;
 import kr.co.itresumeregistersite.domain.comment.service.CommentService;
 import kr.co.itresumeregistersite.global.error.response.ResponseFormat;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +37,10 @@ public class CommentController {
     }
 
 
-    // TODO : 댓글 삭제
+    // 댓글 삭제
+    @DeleteMapping()
+    public ResponseFormat deleteComment(Long commentId) {
+        commentService.deleteComment(commentId);
+        return ResponseFormat.ok();
+    }
 }

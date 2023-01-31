@@ -37,5 +37,8 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    // TODO : 댓글 삭제
+    // 댓글 삭제
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteByCommentId(commentId);
+    }
 }
