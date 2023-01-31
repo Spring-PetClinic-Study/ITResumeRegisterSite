@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class RegisterCommentDto {
+public class CommentDto {
 
     private String wirter;
 

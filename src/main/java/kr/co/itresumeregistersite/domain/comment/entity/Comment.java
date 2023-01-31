@@ -1,7 +1,7 @@
 package kr.co.itresumeregistersite.domain.comment.entity;
 
 import kr.co.itresumeregistersite.domain.board.entity.Board;
-import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
+import kr.co.itresumeregistersite.domain.comment.dto.CommentDto;
 import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
 
@@ -40,7 +40,7 @@ public class Comment {
 
 
 
-    public static Comment of(RegisterCommentDto registerCommentDto) {
+    public static Comment of(CommentDto registerCommentDto) {
         return Comment.builder()
                 .writer(registerCommentDto.getWirter())
                 .comment(registerCommentDto.getComment())
