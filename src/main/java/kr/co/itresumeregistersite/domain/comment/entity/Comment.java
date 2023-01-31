@@ -44,9 +44,11 @@ public class Comment {
 
 
 
-    public void edit(String writer,
+    public void edit(Long commentId,
+                     String writer,
                      String comment,
                      LocalDateTime modifiedDate) {
+        this.commentId = commentId;
         this.writer = writer;
         this.comment = comment;
         this.modifiedDate = LocalDateTime.now();
