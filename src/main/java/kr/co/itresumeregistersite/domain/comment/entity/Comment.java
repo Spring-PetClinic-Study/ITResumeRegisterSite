@@ -1,7 +1,6 @@
 package kr.co.itresumeregistersite.domain.comment.entity;
 
 import kr.co.itresumeregistersite.domain.board.entity.Board;
-import kr.co.itresumeregistersite.domain.comment.dto.EditCommentDto;
 import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
 import lombok.*;
 
@@ -46,9 +45,11 @@ public class Comment {
 
 
     public void edit(String writer,
-                     String comment) {
+                     String comment,
+                     LocalDateTime modifiedDate) {
         this.writer = writer;
         this.comment = comment;
+        this.modifiedDate = LocalDateTime.now();
     }
 
 

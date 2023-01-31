@@ -42,7 +42,7 @@ public class CommentService {
         writerHasNotBeenEntered(comment.getWriter());
         noCommentHaveBeenWritten(comment.getComment());
 
-        comment.edit(editCommentDto.getWriter(), editCommentDto.getComment());
+        comment.edit(editCommentDto.getWriter(), editCommentDto.getComment(), editCommentDto.getModifiedDate());
         commentRepository.save(comment);
     }
 
