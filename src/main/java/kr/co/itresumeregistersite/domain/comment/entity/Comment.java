@@ -46,9 +46,11 @@ public class Comment {
 
 
     public void edit(String writer,
-                     String comment) {
+                     String comment,
+                     LocalDateTime modifiedDate) {
         this.writer = writer;
         this.comment = comment;
+        this.modifiedDate = LocalDateTime.now();
     }
 
 
