@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,12 +21,16 @@ public class ResumeService {
         resumeRepository.save(resume);
     }
 
-    // TODO : 이력서 전체 목록 조회
+    // 이력서 전체 목록 조회
     public List<Resume> findAllResumeInfo() {
         return resumeRepository.findAll();
     }
 
-    // TODO : 특정 이력서 조회
+    // 특정 이력서 조회
+    public List<Resume> findResumeInfo(String companyName) {
+        List<Resume> resumeList = resumeRepository.findByCompanyName(companyName);
+        return resumeList;
+    }
 
     // TODO : 이력서 수정
 
