@@ -26,8 +26,8 @@ public class CommentController {
 
     // 댓글 조회
     @GetMapping()
-    public List<Comment> findAllComment() {
-        return commentService.findAllComment();
+    public ResponseFormat<List<Comment>> findAllComment() {
+        return ResponseFormat.ok(commentService.findAllComment());
     }
 
     // 댓글 수정
