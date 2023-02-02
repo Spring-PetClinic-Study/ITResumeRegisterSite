@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -54,15 +55,15 @@ public class BoardService {
     // 게시글 수정 시 비밀번호를 입력받은 후 일치할 경우 수정할 수 있도록
     @Transactional
     public void editPost(EditPostDto editPostDto) {
-        Board board = boardRepository.findByBoardId(editPostDto.getBoardId());
+        Optional<Board> board = boardRepository.findByBoardId(editPostDto.getBoardId());
 
         // 제목, 내용이 비어있을 경우 예외 발생
         noInputTitle(editPostDto.getTitle());
         noInputContent(editPostDto.getContent());
 
-        board.edit(editPostDto.getTitle(), editPostDto.getContent());
+        board.get().edit(editPostDto.getTitle(), editPostDto.getContent());
 
-        boardRepository.save(board);
+        boardRepository.save(board.get());
     }
 
     // 게시글 삭제
