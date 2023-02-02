@@ -18,6 +18,10 @@ public class Career {
     @Column(name = "career_id")
     private Long careerId;  // primary Key
 
+    @OneToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resumeId;    // foreign Key
+
     @Column(length = 20, nullable = false)
     private String companyName; // 회사명
 
@@ -35,8 +39,4 @@ public class Career {
 
     @Column(name = "assigned_task", length = 20, nullable = false)
     private String assignedTask;  // 담당업무
-
-    @OneToOne
-    @JoinColumn(name = "resume_id")
-    private Resume resume;    // foreign Key
 }
