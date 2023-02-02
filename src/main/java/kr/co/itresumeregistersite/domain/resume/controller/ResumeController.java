@@ -1,14 +1,12 @@
 package kr.co.itresumeregistersite.domain.resume.controller;
 
+import kr.co.itresumeregistersite.domain.resume.dto.EditResumeDto;
 import kr.co.itresumeregistersite.domain.resume.dto.RegisterResumeDto;
 import kr.co.itresumeregistersite.domain.resume.entity.Resume;
 import kr.co.itresumeregistersite.domain.resume.service.ResumeService;
 import kr.co.itresumeregistersite.global.error.response.ResponseFormat;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,12 +31,17 @@ public class ResumeController {
     }
 
     // 특정 이력서 조회
-    @GetMapping("/company")
-    public ResponseFormat<List<Resume>> findResumeInfo(String companyName) {
-        return ResponseFormat.ok(resumeService.findResumeInfo(companyName));
-    }
+//    @GetMapping("/company")
+//    public ResponseFormat<List<Resume>> findResumeInfo(Long resumeId) {
+//        return ResponseFormat.ok(resumeService.findResumeInfo(resumeId));
+//    }
 
-    // TODO : 이력서 수정
+    // 이력서 수정
+    @PutMapping()
+    public ResponseFormat editResume(EditResumeDto editResumeDto) {
+        resumeService.editResume(editResumeDto);
+        return ResponseFormat.ok("Your resume has been successfully modified");
+    }
 
     // TODO : 이력서 삭제
 }

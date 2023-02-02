@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.domain.resume.service;
 
+import kr.co.itresumeregistersite.domain.resume.dto.EditResumeDto;
 import kr.co.itresumeregistersite.domain.resume.dto.RegisterResumeDto;
 import kr.co.itresumeregistersite.domain.resume.entity.Resume;
 import kr.co.itresumeregistersite.domain.resume.repository.ResumeRepository;
@@ -27,12 +28,22 @@ public class ResumeService {
     }
 
     // 특정 이력서 조회
-    public List<Resume> findResumeInfo(String companyName) {
-        List<Resume> resumeList = resumeRepository.findByCompanyName(companyName);
-        return resumeList;
-    }
+//    public List<Resume> findResumeInfo(Long resumeId) {
+//        List<Resume> resumeList = resumeRepository.findByResumeId(resumeId);
+//        return resumeList;
+//    }
 
-    // TODO : 이력서 수정
+    // 이력서 수정
+    public void editResume(EditResumeDto editResumeDto) {
+        Resume resume = resumeRepository.findByResumeId(editResumeDto.getResumeId());
+        resume.edit(editResumeDto.getSchoolName(),
+                editResumeDto.getMajor(),
+                editResumeDto.getMinor(),
+                editResumeDto.getProfile(),
+                editResumeDto.getModifiedDate());
+
+        resumeRepository.save(resume);
+    }
 
     // TODO : 이력서 삭제
 }

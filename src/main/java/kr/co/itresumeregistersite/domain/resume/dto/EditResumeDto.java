@@ -1,7 +1,5 @@
 package kr.co.itresumeregistersite.domain.resume.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -9,9 +7,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
-@AllArgsConstructor
-public class RegisterResumeDto {
+public class EditResumeDto {
 
     private Long resumeId;
 
@@ -29,5 +25,5 @@ public class RegisterResumeDto {
     @Size(max = 125, message = "자기소개서는 최대 125자까지 작성 가능합니다")
     private String profile;
 
-    private LocalDateTime registerDate;
+    private LocalDateTime modifiedDate;
 }

@@ -22,8 +22,8 @@ public class Resume {
     @Column(name = "school_name", length = 30, nullable = false)
     private String schoolName;  // 학교명
 
-    @Column(name = "company_name", length = 30, nullable = false)
-    private String companyName; // 지원 회사명
+//    @Column(name = "company_name", length = 30, nullable = false)
+//    private String companyName; // 지원 회사명
 
     @Column(length = 30)
     private String major;   // 전공
@@ -48,11 +48,23 @@ public class Resume {
     public static Resume of(RegisterResumeDto registerResumeDto) {
         return Resume.builder()
                 .schoolName(registerResumeDto.getSchoolName())
-                .companyName(registerResumeDto.getCompanyName())
                 .major(registerResumeDto.getMajor())
                 .minor(registerResumeDto.getMinor())
                 .profile(registerResumeDto.getProfile())
                 .registerDate(LocalDateTime.now())
                 .build();
+    }
+
+
+    public void edit(String schoolName,
+                     String major,
+                     String minor,
+                     String profile,
+                     LocalDateTime modifiedDate) {
+        this.schoolName = schoolName;
+        this.major = major;
+        this.minor = minor;
+        this.profile = profile;
+        this.modifiedDate = LocalDateTime.now();
     }
 }
