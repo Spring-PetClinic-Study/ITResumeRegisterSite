@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,14 +37,18 @@ public class CommentService {
     public void editComment(EditCommentDto editCommentDto) {
         // 작성된 댓글들이 없을 경우 예외처리
         noCommentHaveBeenWritten(editCommentDto.getCommentId());
-        Comment comment = commentRepository.findByCommentId(editCommentDto.getCommentId());
+        Optional<Comment> comment = commentRepository.findByCommentId(editCommentDto.getCommentId());
 
         // 댓글의 작성자, 댓글내용이 없을 경우 예외처리
-        writerHasNotBeenEntered(comment.getWriter());
-        noCommentHaveBeenWritten(comment.getComment());
+        writerHasNotBeenEntered(comment.get().getWriter());
+        noCommentHaveBeenWritten(comment.get().getComment());
 
-        comment.edit(editCommentDto.getCommentId(), editCommentDto.getWriter(), editCommentDto.getComment(), editCommentDto.getModifiedDate());
-        commentRepository.save(comment);
+        comment.get().edit(editCommentDto.getCommentId(),
+                editCommentDto.getWriter(),
+                editCommentDto.getComment(),
+                editCommentDto.getModifiedDate());
+
+        commentRepository.save(comment.get());
     }
 
     // 댓글 삭제
@@ -51,6 +56,8 @@ public class CommentService {
         // 작성한 댓글이 없을 경우 예외처리
         noCommentHaveBeenWritten(commentId);
         commentRepository.deleteById(commentId);
+        // 5137 9200 4229 8657
+        // 1126
     }
 
 
