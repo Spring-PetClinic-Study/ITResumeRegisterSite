@@ -32,7 +32,10 @@ public enum ErrorCode { // 예외에 대한 정보를 담고 있는 enum class
     TITLE_INPUT_INVALID(204, HttpStatus.NO_CONTENT, "Title Input is Invalid"),
     WRITER_INPUT_INVALID(204, HttpStatus.NO_CONTENT, "Writer Input is Invalid"),
     CONTENT_INPUT_INVALID(204, HttpStatus.NO_CONTENT, "Content Input is Invalid"),
-    NOT_FOUND_POST(404, HttpStatus.NOT_FOUND, "Not Found Post");
+    NOT_FOUND_POST(404, HttpStatus.NOT_FOUND, "Not Found Post"),
+
+    // Comment
+    COMMENT_INPUT_INVALID(204, HttpStatus.NO_CONTENT, "Comment Input is Invalid");
 
     private final int status;
     private final HttpStatus code;

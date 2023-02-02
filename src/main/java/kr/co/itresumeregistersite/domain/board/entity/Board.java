@@ -1,6 +1,7 @@
 package kr.co.itresumeregistersite.domain.board.entity;
 
 import kr.co.itresumeregistersite.domain.board.dto.SavePostDto;
+import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,11 +22,11 @@ public class Board {
     @Column(length = 125, nullable = false)
     private String title;   // 제목
 
-    @Column(length = 125, nullable = false)
-    private String content; // 내용
-
     @Column(length = 20, nullable = false)
     private String writer;  // 작성자
+
+    @Column(length = 125, nullable = false)
+    private String content; // 내용
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;  // 생성일
@@ -33,14 +34,15 @@ public class Board {
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate; // 수정일
 
-//    @OneToMany(cascade = CascadeType.REMOVE)    // 게시글이 삭제될 경우 댓글도 같이 삭제하기 위함(cascade)
-//    private List<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public static Board of(SavePostDto savePostDto) {
         return Board.builder()
                 .title(savePostDto.getTitle())
-                .content(savePostDto.getContent())
                 .writer(savePostDto.getWriter())
+                .content(savePostDto.getContent())
                 .createdDate(LocalDateTime.now())
                 .build();
     }
