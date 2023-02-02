@@ -53,4 +53,13 @@ public class ResponseFormat<T> {   // 공통 응답 모델
                 .status(ErrorCode.SUCCESS.getStatus())
                 .build();
     }
+
+    public static <T> ResponseFormat ok(T data, String message) {
+        return ResponseFormat.builder()
+                .result(true)
+                .data(data)
+                .message(ErrorCode.SUCCESS.getMessage())
+                .status(ErrorCode.SUCCESS.getStatus())
+                .build();
+    }
 }

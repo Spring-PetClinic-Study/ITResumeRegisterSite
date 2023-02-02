@@ -2,6 +2,8 @@ package kr.co.itresumeregistersite.global.error.exception;
 
 import kr.co.itresumeregistersite.global.error.enums.ErrorCode;
 import kr.co.itresumeregistersite.global.error.exception.comment.InvalidCommentException;
+import kr.co.itresumeregistersite.global.error.exception.resume.NoResumeRequiredEntriesException;
+import kr.co.itresumeregistersite.global.error.exception.resume.NotFoundResumeException;
 import kr.co.itresumeregistersite.global.error.exception.user.*;
 import kr.co.itresumeregistersite.global.error.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionAdvice {
 
+    // User
     // NotFoundUserException을 지정해서 잡아낸다 (즉, 특정 Exception을 지정해서 잡아낸다)
     @ExceptionHandler(NotFoundUserException.class)
     public ResponseEntity<ErrorResponse> notFoundUserException(NotFoundUserException e) {
@@ -51,6 +54,33 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
     }
 
+
+    // Post
+    @ExceptionHandler(InvalidCommentException.class)
+    public ResponseEntity<ErrorResponse> invalidCommentException(InvalidCommentException e) {
+        log.error("InvalidCommentException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.COMMENT_INPUT_INVALID);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+    }
+
+
+    // Resume
+    @ExceptionHandler(NotFoundResumeException.class)
+    public ResponseEntity<ErrorResponse> notFoundResumeException(NotFoundResumeException e) {
+        log.error("NotFoundResumeException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NOT_FOUND_RESUME);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoResumeRequiredEntriesException.class)
+    public ResponseEntity<ErrorResponse> noResumeRequiredEntriesException(NoResumeRequiredEntriesException e) {
+        log.error("NoResumeRequiredEntriesException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NO_RESUME_REQUIRED_ENTRIES_FILLED_OUT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+    }
+
+
+    // Common
     @ExceptionHandler(InvalidParameterException.class)
     public ResponseEntity<ErrorResponse> invalidParameterException(InvalidParameterException e) {
         log.error("InvalidParameterException Occurred", e);
@@ -58,10 +88,6 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidCommentException.class)
-    public ResponseEntity<ErrorResponse> invalidCommentException(InvalidCommentException e) {
-        log.error("InvalidCommentException Occurred", e);
-        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.COMMENT_INPUT_INVALID);
-        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
-    }
+
+
 }

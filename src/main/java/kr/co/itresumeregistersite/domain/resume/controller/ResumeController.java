@@ -21,20 +21,23 @@ public class ResumeController {
     @PostMapping()
     public ResponseFormat registerResume(RegisterResumeDto registerResumeDto) {
         resumeService.registerResume(registerResumeDto);
-        return ResponseFormat.ok();
+        return ResponseFormat.ok("Your resume has been successfully registered");
     }
 
     // 이력서 전체 목록 조회
     @GetMapping
     public ResponseFormat<List<Resume>> findAllResumeInfo() {
-        return ResponseFormat.ok(resumeService.findAllResumeInfo());
+        return ResponseFormat.ok(resumeService.findAllResumeInfo(),
+                "Your resume has been successfully checked");
     }
 
     // 특정 이력서 조회
-//    @GetMapping("/company")
-//    public ResponseFormat<List<Resume>> findResumeInfo(Long resumeId) {
-//        return ResponseFormat.ok(resumeService.findResumeInfo(resumeId));
-//    }
+    // 학교명으로 검색할 경우 동일한 학교명을 가진 이력서들을 조회
+    @GetMapping("/company")
+    public ResponseFormat<Resume> findResumeInfo(Long resumeId) {
+        return ResponseFormat.ok(resumeService.findResumeInfo(resumeId),
+                "Your resume has been successfully checked");
+    }
 
     // 이력서 수정
     @PutMapping()
