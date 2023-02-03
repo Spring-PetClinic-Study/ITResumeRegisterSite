@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
 
     Optional<Resume> findByResumeId(Long resumeId);
+
+    Optional<Resume> deleteByResumeId(Long resumeId);
 }

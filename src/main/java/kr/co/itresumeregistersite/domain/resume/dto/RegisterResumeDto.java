@@ -18,6 +18,7 @@ public class RegisterResumeDto {
     @NotBlank(message = "학교명을 입력해주세요")
     private String schoolName;
 
+    @NotBlank(message = "전공을 입력해주세요")
     private String major;
 
     private String minor;
