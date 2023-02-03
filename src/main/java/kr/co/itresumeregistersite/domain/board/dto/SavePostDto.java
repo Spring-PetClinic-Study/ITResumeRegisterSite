@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.domain.board.dto;
 
+import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,8 +23,10 @@ public class SavePostDto {
     @NotBlank(message = "내용을 작성해주세요")
     private String content;
 
-    @NotBlank(message = "작성자를 작성해주세요")
+//    @NotBlank(message = "작성자를 작성해주세요")
     private String writer;
 
     private LocalDateTime createdDate;
+
+    private User user;
 }

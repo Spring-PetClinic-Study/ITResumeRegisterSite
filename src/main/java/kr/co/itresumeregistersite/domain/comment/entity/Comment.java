@@ -2,10 +2,12 @@ package kr.co.itresumeregistersite.domain.comment.entity;
 
 import kr.co.itresumeregistersite.domain.board.entity.Board;
 import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
+import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -33,10 +35,14 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;  // foreign key
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;  // 작성자
+
 
     public static Comment of(RegisterCommentDto registerCommentDto) {
         return Comment.builder()
-                .writer(registerCommentDto.getWriter())
+//                .writer(registerCommentDto.getWriter())
                 .comment(registerCommentDto.getComment())
                 .registerDate(LocalDateTime.now())
                 .build();
@@ -53,6 +59,4 @@ public class Comment {
         this.comment = comment;
         this.modifiedDate = LocalDateTime.now();
     }
-
-
 }

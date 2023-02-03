@@ -32,7 +32,6 @@ public class BoardService {
         noInputContent(savePostDto.getContent());
 
         final Board board = Board.of(savePostDto);
-
         boardRepository.save(board);
     }
 

@@ -1,9 +1,14 @@
 package kr.co.itresumeregistersite.domain.comment.service;
 
+import kr.co.itresumeregistersite.domain.board.entity.Board;
+import kr.co.itresumeregistersite.domain.board.repository.BoardRepository;
 import kr.co.itresumeregistersite.domain.comment.dto.EditCommentDto;
 import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
 import kr.co.itresumeregistersite.domain.comment.entity.Comment;
 import kr.co.itresumeregistersite.domain.comment.repository.CommentRepository;
+import kr.co.itresumeregistersite.domain.user.entity.User;
+import kr.co.itresumeregistersite.domain.user.repository.UserRepository;
+import kr.co.itresumeregistersite.global.error.exception.board.IllegalArgumentException;
 import kr.co.itresumeregistersite.global.error.exception.board.NotExistWriterException;
 import kr.co.itresumeregistersite.global.error.exception.comment.InvalidCommentException;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +27,9 @@ public class CommentService {
     // 댓글 등록
     @Transactional
     public void registerComment(RegisterCommentDto registerCommentDto) {
-        // 댓글 작성자와 내용이 없을 경우 예외처리
+        // 댓글 내용이 없을 경우 예외처리
         writerHasNotBeenEntered(registerCommentDto.getWriter());
         noCommentHaveBeenWritten(registerCommentDto.getComment());
-
         Comment comment = Comment.of(registerCommentDto);
         commentRepository.save(comment);
     }
@@ -44,7 +48,7 @@ public class CommentService {
         Optional<Comment> comment = commentRepository.findByCommentId(editCommentDto.getCommentId());
 
         // 댓글의 작성자, 댓글내용이 없을 경우 예외처리
-        writerHasNotBeenEntered(comment.get().getWriter());
+//        writerHasNotBeenEntered(comment.get().getWriter());
         noCommentHaveBeenWritten(comment.get().getComment());
 
         comment.get().edit(editCommentDto.getCommentId(),

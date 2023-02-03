@@ -1,5 +1,7 @@
 package kr.co.itresumeregistersite.domain.comment.dto;
 
+import kr.co.itresumeregistersite.domain.board.entity.Board;
+import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,6 +21,10 @@ public class RegisterCommentDto {
     @NotBlank(message = "댓글 내용을 입력해주세요")
     @Size(max = 125, message = "댓글은 최대 125자까지 가능합니다")
     private String comment;
+
+    private User userId;
+
+    private Board boardId;
 
     private LocalDateTime registerDate;
 }
