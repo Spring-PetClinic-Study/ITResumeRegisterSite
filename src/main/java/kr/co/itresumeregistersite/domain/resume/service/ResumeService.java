@@ -2,6 +2,7 @@ package kr.co.itresumeregistersite.domain.resume.service;
 
 import kr.co.itresumeregistersite.domain.resume.dto.EditResumeDto;
 import kr.co.itresumeregistersite.domain.resume.dto.RegisterResumeDto;
+import kr.co.itresumeregistersite.domain.resume.dto.ResumeInfoDto;
 import kr.co.itresumeregistersite.domain.resume.entity.Resume;
 import kr.co.itresumeregistersite.domain.resume.repository.ResumeRepository;
 import kr.co.itresumeregistersite.global.error.exception.resume.NoResumeRequiredEntriesException;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +20,6 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
 
     // 이력서 작성
-    // test error
     @Transactional
     public void registerResume(RegisterResumeDto registerResumeDto) {
         invalidResumeEntries(registerResumeDto.getSchoolName(), registerResumeDto.getProfile());
@@ -30,15 +29,17 @@ public class ResumeService {
 
     // 이력서 전체 목록 조회
     @Transactional(readOnly = true)
-    public List<Resume> findAllResumeInfo() {
-        return resumeRepository.findAll();
+    public List<ResumeInfoDto> findAllResumeInfo() {
+        return resumeRepository.findResumeListBy();
     }
 
     // 특정 이력서 조회
     @Transactional(readOnly = true)
-    public Optional<Resume> findResumeInfo(Long resumeId) {
-        Optional<Resume> resume = resumeRepository.findByResumeId(resumeId);
-        return resume;
+    public ResumeInfoDto findResumeInfo(Long resumeId) {
+        Resume resume = resumeRepository.findByResumeId(resumeId)
+                .orElseThrow(NotFoundResumeException::new);
+
+        return Resume.of(resume);
     }
 
     // 이력서 수정
@@ -70,6 +71,13 @@ public class ResumeService {
         }
         if (profile == null) {
             throw new NoResumeRequiredEntriesException();
+        }
+    }
+
+    // 작성된 이력서가 없을 경우 예외처리
+    private void noResumeHasBeenCompleted(Long resumeId) {
+        if (!resumeRepository.existsByResumeId(resumeId)) {
+            throw new NotFoundResumeException();
         }
     }
 }

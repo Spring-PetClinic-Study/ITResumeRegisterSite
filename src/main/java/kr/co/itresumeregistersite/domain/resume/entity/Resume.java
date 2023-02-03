@@ -1,6 +1,7 @@
 package kr.co.itresumeregistersite.domain.resume.entity;
 
 import kr.co.itresumeregistersite.domain.resume.dto.RegisterResumeDto;
+import kr.co.itresumeregistersite.domain.resume.dto.ResumeInfoDto;
 import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
 
@@ -52,6 +53,15 @@ public class Resume {
                 .minor(registerResumeDto.getMinor())
                 .profile(registerResumeDto.getProfile())
                 .registerDate(LocalDateTime.now())
+                .build();
+    }
+
+    public static ResumeInfoDto of(Resume resume) {
+        return ResumeInfoDto.builder()
+                .schoolName(resume.schoolName)
+                .major(resume.getMajor())
+                .minor(resume.getMinor())
+                .profile(resume.getProfile())
                 .build();
     }
 
