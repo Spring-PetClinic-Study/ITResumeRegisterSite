@@ -1,6 +1,7 @@
 package kr.co.itresumeregistersite.domain.comment.entity;
 
 import kr.co.itresumeregistersite.domain.board.entity.Board;
+import kr.co.itresumeregistersite.domain.comment.dto.EditCommentDto;
 import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
 import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;

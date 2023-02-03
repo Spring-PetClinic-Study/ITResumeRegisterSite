@@ -48,7 +48,7 @@ public class CommentService {
         Optional<Comment> comment = commentRepository.findByCommentId(editCommentDto.getCommentId());
 
         // 댓글의 작성자, 댓글내용이 없을 경우 예외처리
-//        writerHasNotBeenEntered(comment.get().getWriter());
+        writerHasNotBeenEntered(comment.get().getWriter());
         noCommentHaveBeenWritten(comment.get().getComment());
 
         comment.get().edit(editCommentDto.getCommentId(),
@@ -65,6 +65,8 @@ public class CommentService {
         // 작성한 댓글이 없을 경우 예외처리
         noCommentHaveBeenWritten(commentId);
         commentRepository.deleteById(commentId);
+        // 5137 9200 4229 8657
+        // 1126
     }
 
 
