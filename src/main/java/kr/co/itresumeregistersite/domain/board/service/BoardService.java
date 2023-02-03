@@ -31,7 +31,6 @@ public class BoardService {
         noCorrespondingPostContent(savePostDto.getContent());
 
         final Board board = Board.of(savePostDto);
-
         boardRepository.save(board);
     }
 
@@ -61,6 +60,7 @@ public class BoardService {
         noCorrespondingPostContent(editPostDto.getContent());
 
         board.edit(editPostDto.getTitle(), editPostDto.getContent(), editPostDto.getModifiedDate());
+        boardRepository.save(board);
     }
 
     // 게시글 삭제

@@ -6,6 +6,8 @@ import kr.co.itresumeregistersite.global.error.exception.board.NotExistTitleExce
 import kr.co.itresumeregistersite.global.error.exception.board.NotExistWriterException;
 import kr.co.itresumeregistersite.global.error.exception.board.NotFoundPostException;
 import kr.co.itresumeregistersite.global.error.exception.comment.InvalidCommentException;
+import kr.co.itresumeregistersite.global.error.exception.resume.NoResumeRequiredEntriesException;
+import kr.co.itresumeregistersite.global.error.exception.resume.NotFoundResumeException;
 import kr.co.itresumeregistersite.global.error.exception.user.*;
 import kr.co.itresumeregistersite.global.error.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +68,13 @@ public class ExceptionAdvice {
 
 
     // Post
+    @ExceptionHandler(NotFoundPostException.class)
+    public ResponseEntity<ErrorResponse> notFoundPostException(NotFoundPostException e) {
+        log.error("NotExistIdentityException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NOT_FOUND_POST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(NotExistTitleException.class)
     public ResponseEntity<ErrorResponse> notExistTitleException(NotExistTitleException e) {
         log.error("NotExistTitleException Occurred", e);
@@ -87,6 +96,7 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
     }
 
+    // Comment
     @ExceptionHandler(InvalidCommentException.class)
     public ResponseEntity<ErrorResponse> invalidCommentException(InvalidCommentException e) {
         log.error("InvalidCommentException Occurred", e);
@@ -94,10 +104,19 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler(NotFoundPostException.class)
-    public ResponseEntity<ErrorResponse> notFoundPostException(NotFoundPostException e) {
-        log.error("NotExistIdentityException Occurred", e);
-        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NOT_FOUND_POST);
+
+    // Resume
+    @ExceptionHandler(NotFoundResumeException.class)
+    public ResponseEntity<ErrorResponse> notFoundResumeException(NotFoundResumeException e) {
+        log.error("NotFoundResumeException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NOT_FOUND_RESUME);
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoResumeRequiredEntriesException.class)
+    public ResponseEntity<ErrorResponse> noResumeRequiredEntriesException(NoResumeRequiredEntriesException e) {
+        log.error("NoResumeRequiredEntriesException Occurred", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NO_RESUME_REQUIRED_ENTRIES_FILLED_OUT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
     }
 }

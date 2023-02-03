@@ -4,6 +4,7 @@ import kr.co.itresumeregistersite.domain.comment.dto.EditCommentDto;
 import kr.co.itresumeregistersite.domain.comment.dto.RegisterCommentDto;
 import kr.co.itresumeregistersite.domain.comment.entity.Comment;
 import kr.co.itresumeregistersite.domain.comment.service.CommentService;
+import kr.co.itresumeregistersite.domain.user.entity.User;
 import kr.co.itresumeregistersite.global.error.response.ResponseFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

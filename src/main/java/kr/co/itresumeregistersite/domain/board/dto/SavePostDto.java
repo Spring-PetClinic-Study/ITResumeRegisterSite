@@ -1,5 +1,6 @@
 package kr.co.itresumeregistersite.domain.board.dto;
 
+import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,4 +25,6 @@ public class SavePostDto {
     private String writer;
 
     private LocalDateTime createdDate;
+
+    private User user;
 }

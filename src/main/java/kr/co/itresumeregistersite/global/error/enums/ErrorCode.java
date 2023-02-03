@@ -35,7 +35,11 @@ public enum ErrorCode { // 예외에 대한 정보를 담고 있는 enum class
     NOT_FOUND_POST(404, HttpStatus.NOT_FOUND, "Not Found Post"),
 
     // Comment
-    COMMENT_INPUT_INVALID(204, HttpStatus.NO_CONTENT, "Comment Input is Invalid");
+    COMMENT_INPUT_INVALID(204, HttpStatus.NO_CONTENT, "Comment Input is Invalid"),
+
+    // Resume
+    NOT_FOUND_RESUME(404, HttpStatus.NOT_FOUND, "Not Found Resume"),
+    NO_RESUME_REQUIRED_ENTRIES_FILLED_OUT(204, HttpStatus.NO_CONTENT, "No resume required entries have been filled out");
 
     private final int status;
     private final HttpStatus code;

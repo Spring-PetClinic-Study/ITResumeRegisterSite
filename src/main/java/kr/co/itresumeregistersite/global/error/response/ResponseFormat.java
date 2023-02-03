@@ -27,6 +27,15 @@ public class ResponseFormat<T> {   // 공통 응답 모델
                 .build();
     }
 
+    public static ResponseFormat ok(String message) {
+        return ResponseFormat.builder()
+                .result(true)
+                .data(null)
+                .message(ErrorCode.SUCCESS.getMessage())
+                .status(ErrorCode.SUCCESS.getStatus())
+                .build();
+    }
+
     public static ResponseFormat fail() {
         return ResponseFormat.builder()
                 .result(false)
@@ -37,6 +46,15 @@ public class ResponseFormat<T> {   // 공통 응답 모델
     }
 
     public static <T> ResponseFormat ok(T data) {
+        return ResponseFormat.builder()
+                .result(true)
+                .data(data)
+                .message(ErrorCode.SUCCESS.getMessage())
+                .status(ErrorCode.SUCCESS.getStatus())
+                .build();
+    }
+
+    public static <T> ResponseFormat ok(T data, String message) {
         return ResponseFormat.builder()
                 .result(true)
                 .data(data)

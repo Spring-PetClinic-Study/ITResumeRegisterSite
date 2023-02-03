@@ -1,14 +1,11 @@
 package kr.co.itresumeregistersite.domain.user.entity;
 
-import kr.co.itresumeregistersite.domain.board.entity.Board;
 import kr.co.itresumeregistersite.domain.comment.entity.Comment;
-import kr.co.itresumeregistersite.domain.resume.entity.Resume;
 import kr.co.itresumeregistersite.domain.user.dto.SignUpDto;
 import kr.co.itresumeregistersite.domain.user.dto.UserInfoDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -46,6 +43,9 @@ public class User {
 
     @Column(length = 10, nullable = false)
     private String gender;  // 성별
+
+    @OneToMany(mappedBy = "comment")
+    private List<Comment> comments;
 
 
     public static User of(SignUpDto signUpDto){

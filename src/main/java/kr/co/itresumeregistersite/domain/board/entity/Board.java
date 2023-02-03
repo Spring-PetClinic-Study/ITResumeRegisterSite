@@ -1,11 +1,13 @@
 package kr.co.itresumeregistersite.domain.board.entity;
 
 import kr.co.itresumeregistersite.domain.board.dto.SavePostDto;
+import kr.co.itresumeregistersite.domain.comment.entity.Comment;
 import kr.co.itresumeregistersite.domain.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -34,9 +36,12 @@ public class Board {
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate; // 수정일
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "comment")
+    private List<Comment> comments;
 
     public static Board of(SavePostDto savePostDto) {
         return Board.builder()
